@@ -19,23 +19,25 @@ namespace Registration.Api.Controllers
         private static ServiceContainer _serviceFolderContainer = (ServiceContainer)HttpContext.Current.Application["serviceContainer"];
 
         private IDictionary<string, IFolderTreeService> _existFolderTreeService = new Dictionary<string, IFolderTreeService>();
-        private IFolderService _folderService;
 
         private IFolderTreeService getFolderTreeService(string connectionString)
         {
-            IFolderTreeService folderTreeService;
-            if (!_existFolderTreeService.ContainsKey(connectionString))
+            if (string.IsNullOrEmpty(connectionString))
             {
-                DatabaseService _databaseService = ((IDictionary<string, DatabaseService>)_serviceFolderContainer.GetService(typeof(IDictionary<string, DatabaseService>)))[connectionString];
+                throw new ArgumentNullException(nameof(connectionString));
+            }
+           
+            IFolderTreeService folderTreeService;
+            if (!_existFolderTreeService.TryGetValue(connectionString, out folderTreeService))
+            {
+                DatabaseService _databaseService = ((DatabasesService)_serviceFolderContainer.GetService(typeof(DatabasesService))).GetDatabasesService()[connectionString];
                 folderTreeService = new FolderTreeService(_databaseService);
                 _existFolderTreeService.Add(connectionString, folderTreeService);
             }
-            else
-            {
-                folderTreeService = _existFolderTreeService[connectionString];
-            }
+
             return folderTreeService;
         }
+
 
         [HttpPost]
         [Route("api/{connectionString}/folder")]
@@ -55,16 +57,14 @@ namespace Registration.Api.Controllers
         [Route("api/{connectionString}/letters/folder/{folderId}/{ownerId}")]
         public IEnumerable<LetterView> GetLettersInFolder(Guid folderId, Guid ownerId, string connectionString)
         {
-            _folderService = getFolderTreeService(connectionString).GetFolderService(folderId);
-            return _folderService.GetLettersInFolder(folderId);
+            return getFolderTreeService(connectionString).GetFolderService(folderId).GetLettersInFolder(folderId);
         }
 
         [HttpGet]
         [Route("api/{connectionString}/count/letters/{folderId}")]
         public int GetCountLettersInFolder(Guid folderId, string connectionString)
         {
-            _folderService = getFolderTreeService(connectionString).GetFolderService(folderId);
-            return _folderService.GetCountLettersInFolder(folderId);
+            return getFolderTreeService(connectionString).GetFolderService(folderId).GetCountLettersInFolder(folderId);
         }
 
         [HttpPut]
