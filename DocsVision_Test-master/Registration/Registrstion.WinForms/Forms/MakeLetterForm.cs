@@ -14,13 +14,15 @@ namespace Registrstion.WinForms.Forms
         private IClientRequests _clientRequests;
         private Message.IMessageService _messageService;
         private List<string> nameAndLoginReceivers;
-
-        public MakeLetterForm()
+        private readonly IServiceProvider _serviceProvider;
+        public MakeLetterForm(IServiceProvider provider)
         {
             InitializeComponent();
             nameAndLoginReceivers = new List<string>();
+            _serviceProvider = provider;
         }
 
+        private IServiceProvider ServiceProvider => _serviceProvider;
         private IClientRequests ClientRequests
         {
             get { return _clientRequests; }
@@ -116,12 +118,12 @@ namespace Registrstion.WinForms.Forms
 
         private void InitializeClientService()
         {
-            _clientRequests = (IClientRequests)Program.GetServiceContainer().GetService(typeof(IClientRequests));
+            _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
 
         private void InitializeMessageService()
         {
-            _messageService = (Message.IMessageService)Program.GetServiceContainer().GetService(typeof(Message.IMessageService));
+            _messageService = (Message.IMessageService)ServiceProvider.GetService(typeof(Message.IMessageService));
         }
 
 

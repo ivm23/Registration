@@ -11,11 +11,16 @@ namespace Registrstion.WinForms.Forms
     {
         private IClientRequests _clientRequests;
         private Message.IMessageService _messageService;
+        private readonly IServiceProvider _serviceProvider;
 
-        public FullContentLetterForm()
+
+        public FullContentLetterForm(IServiceProvider provider)
         {
+            _serviceProvider = provider;
             InitializeComponent();
         }
+
+        private IServiceProvider ServiceProvider => _serviceProvider;
 
         public IClientRequests ClientRequests
         {
@@ -29,12 +34,12 @@ namespace Registrstion.WinForms.Forms
 
         private void InitializeClientService()
         {
-            _clientRequests = (IClientRequests)Program.GetServiceContainer().GetService(typeof(IClientRequests));
+            _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
 
         private void InitializeMessageService()
         {
-            _messageService = (Message.IMessageService)Program.GetServiceContainer().GetService(typeof(Message.IMessageService));
+            _messageService = (Message.IMessageService)ServiceProvider.GetService(typeof(Message.IMessageService));
         }
 
         public void InitializeForm()

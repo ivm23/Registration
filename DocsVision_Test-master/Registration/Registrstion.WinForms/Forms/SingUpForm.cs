@@ -15,12 +15,14 @@ namespace Registrstion.WinForms.Forms
         private IClientRequests _clientRequests;
         private Message.IMessageService _messageService;
         IDictionary<string, string> databaseNamesAndConnectionStrings;
+        private readonly IServiceProvider _serviceProvider;
         public SingUpForm()
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(singUp_Closing);
         }
 
+        private IServiceProvider ServiceProvider => _serviceProvider;
         private IClientRequests ClientRequests
         {
             get { return _clientRequests; }
@@ -63,12 +65,12 @@ namespace Registrstion.WinForms.Forms
 
         public void InitializeClientService()
         {
-            _clientRequests = (IClientRequests)Program.GetServiceContainer().GetService(typeof(IClientRequests));
+            _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
 
         public void InitializeMessageService()
         {
-            _messageService = (Message.IMessageService)Program.GetServiceContainer().GetService(typeof(Message.IMessageService));
+            _messageService = (Message.IMessageService)ServiceProvider.GetService(typeof(Message.IMessageService));
         }
 
         private void InitializeDatabaseNames()
@@ -144,10 +146,7 @@ namespace Registrstion.WinForms.Forms
 
         private void singUp_Closing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-              //  ServiceContainer.AddService(typeof(bool), true);
-            }
+            Program.CloseReason = e.CloseReason;
         }
     }
 

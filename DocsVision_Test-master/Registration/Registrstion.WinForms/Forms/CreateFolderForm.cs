@@ -29,6 +29,9 @@ namespace Registrstion.WinForms.Forms
         private Controlers.ButtonCreateCancelControl _newButtonsControl;
         private List<Control> _baseControls;
         private Point _baseSizeHeight;
+        private readonly IServiceProvider _serviceProvider;
+
+        private IServiceProvider ServiceProvider => _serviceProvider;
 
         public CreateFolderForm()
         {
@@ -64,7 +67,7 @@ namespace Registrstion.WinForms.Forms
 
         private void InitializeClientService()
         {
-            _clientRequests = (IClientRequests)(Program.GetServiceContainer().GetService(typeof(IClientRequests)));
+            _clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
         }
 
         private void InitializeBaseControls()

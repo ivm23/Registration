@@ -14,6 +14,8 @@ namespace Registrstion.WinForms.Forms
     internal partial class MainWorkerForm : Form
     {
         private IClientRequests _clientRequests;
+        private readonly IServiceProvider _serviceProvider;
+
         private Message.IMessageService _messageService;
         private List<LetterView> _lettersInfo;
         private List<Guid> _foldersId;
@@ -26,7 +28,7 @@ namespace Registrstion.WinForms.Forms
 
         private int _selectNodeIndex = 0;
 
-        public MainWorkerForm()
+        public MainWorkerForm(IServiceProvider provider)
         {
             InitializeComponent();
 
@@ -37,7 +39,10 @@ namespace Registrstion.WinForms.Forms
             briefContentLetterDGV.CellDoubleClick += new DataGridViewCellEventHandler(briefContentLetterDGV_CellDoubleClick);
 
             foldersTV.NodeMouseClick += new TreeNodeMouseClickEventHandler(foldersTV_NodeMouseClick);
+            _serviceProvider = provider;
         }
+
+        private IServiceProvider ServiceProvider => _serviceProvider;
 
         private IClientRequests ClientRequests
         {
@@ -238,12 +243,12 @@ namespace Registrstion.WinForms.Forms
 
         private void InitializeClientService()
         {
-            _clientRequests = (IClientRequests)Program.GetServiceContainer().GetService(typeof(IClientRequests));
+            _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
 
         private void InitializeMessageService()
         {
-            _messageService = (Message.IMessageService)Program.GetServiceContainer().GetService(typeof(Message.IMessageService));
+            _messageService = (Message.IMessageService)ServiceProvider.GetService(typeof(Message.IMessageService));
         }
 
         private void MainWorkerForm_Load(object sender, EventArgs e)
@@ -251,7 +256,7 @@ namespace Registrstion.WinForms.Forms
             InitializeClientService();
             InitializeMessageService();
 
-            using (var form = new Registrstion.WinForms.Registration())
+            using (var form = new Registrstion.WinForms.Registration(ServiceProvider))
             {
                 form.ShowDialog();
             }
@@ -310,7 +315,7 @@ namespace Registrstion.WinForms.Forms
 
             Program.LetterView = _lettersInfo[indexOfSelectedRow];
 
-            using (var fullContentLetterForm = new FullContentLetterForm())
+            using (var fullContentLetterForm = new FullContentLetterForm(ServiceProvider))
             {
                 fullContentLetterForm.ShowDialog();
             }

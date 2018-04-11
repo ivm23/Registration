@@ -17,10 +17,15 @@ namespace Registrstion.WinForms.Forms
     public partial class RenameFolderForm : Form
     {
         private IClientRequests _clientRequests;
-        public RenameFolderForm()
+        private readonly IServiceProvider _serviceProvider;
+
+        public RenameFolderForm(IServiceProvider provider)
         {
             InitializeComponent();
+            _serviceProvider = provider;
         }
+
+        private IServiceProvider ServiceProvider => _serviceProvider;
 
         private IClientRequests ClientRequests
         {
@@ -29,7 +34,7 @@ namespace Registrstion.WinForms.Forms
 
         private void InitializeClientService()
         {
-            _clientRequests = (IClientRequests)Program.GetServiceContainer().GetService(typeof(IClientRequests));
+            _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
 
         private void RenameFolderForm_Load(object sender, EventArgs e)
