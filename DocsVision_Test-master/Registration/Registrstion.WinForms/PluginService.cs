@@ -8,7 +8,7 @@ using Registration.ClientInterface;
 
 namespace Registrstion.WinForms
 {
-    public class PluginService
+    public class PluginService : IPluginService
     {
         private readonly IDictionary<int, IFolderPropertiesUIPlugin> _existClientPlugin = new Dictionary<int, IFolderPropertiesUIPlugin>();
         private readonly IDictionary<Guid, object> _globalExistClientPlugin = new Dictionary<Guid, object>();
