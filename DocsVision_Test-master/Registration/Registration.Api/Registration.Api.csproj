@@ -154,6 +154,7 @@
     <Compile Include="Controllers\DataBaseController.cs" />
     <Compile Include="Controllers\LetterController.cs" />
     <Compile Include="Controllers\WorkerController.cs" />
+    <Compile Include="DatabasesService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

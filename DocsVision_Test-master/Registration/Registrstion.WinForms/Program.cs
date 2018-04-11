@@ -65,7 +65,7 @@ namespace Registrstion.WinForms
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.MainWorkerForm());
+            Application.Run(new Forms.MainWorkerForm(_serviceContainer));
         }
     }
 }

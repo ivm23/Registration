@@ -173,6 +173,7 @@
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IFolderPropertiesUIPlugin.cs" />
+    <Compile Include="IPluginService.cs" />
     <Compile Include="Message\IMessageService.cs" />
     <Compile Include="Message\MessageService.cs" />
     <Compile Include="Message\MessageResource.Designer.cs">
