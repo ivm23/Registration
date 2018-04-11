@@ -19,16 +19,16 @@ namespace Reistration.Api.Controllers
 
         private IWorkerService getWorkerService(string connectionString)
         {
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ArgumentNullException(nameof(connectionString));
+            }
             IWorkerService workerService;
-            if (!_existWorkerService.ContainsKey(connectionString))
+            if (!_existWorkerService.TryGetValue(connectionString, out workerService))
             {
                 DatabaseService _databaseService = ((IDictionary<string, DatabaseService>)_serviceFolderContainer.GetService(typeof(IDictionary<string, DatabaseService>)))[connectionString];
                 workerService = new WorkerService(_databaseService);
                 _existWorkerService.Add(connectionString, workerService);
-            }
-            else
-            {
-                workerService = _existWorkerService[connectionString];
             }
             return workerService;
         }
