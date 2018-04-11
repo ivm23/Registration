@@ -20,17 +20,19 @@ namespace Reistration.Api.Controllers
 
         private ILetterService getLetterService(string connectionString)
         {
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ArgumentNullException(nameof(connectionString));
+            }
+
             ILetterService letterService;
-            if (!_existLetterService.ContainsKey(connectionString))
+            if (!_existLetterService.TryGetValue(connectionString, out letterService))
             {
                 DatabaseService _databaseService = ((IDictionary<string, DatabaseService>)_serviceFolderContainer.GetService(typeof(IDictionary<string, DatabaseService>)))[connectionString];
                 letterService = new LetterService(_databaseService);
                 _existLetterService.Add(connectionString, letterService);
             }
-            else
-            {
-                letterService = _existLetterService[connectionString];
-            }
+       
             return letterService;
         }
 
@@ -38,8 +40,7 @@ namespace Reistration.Api.Controllers
         [Route("api/{connectionString}/letter")]
         public Letter Create([FromBody] LetterView letter, string connectionString)
         {
-            Letter newLetter = getLetterService(connectionString).Create(letter);
-            return newLetter;
+            return getLetterService(connectionString).Create(letter); 
         }
 
         [HttpGet]
