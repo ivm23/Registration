@@ -19,7 +19,7 @@ namespace Registration.ClientInterface
         Worker AuthorizationWorker(string login, string password, string connectionString);
         string GetWorkerName(Guid workerId, string connectionString);
 
-        IEnumerable<string> GetConnectionsStrings();
+        IEnumerable<string> GetDatabasesNames();
 
         IEnumerable<Folder> GetAllWorkerFolders(Guid workerId, string connectionString);
 
@@ -34,5 +34,7 @@ namespace Registration.ClientInterface
         IEnumerable<FolderType> GetAllFolderTypes(string connectionString);
 
         FolderType GetFolderType(int folderTypeId, string connectionString);
+
+        IEnumerable<LetterType> GetAllLetterTypes(string connectionString);
     }
 }

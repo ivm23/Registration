@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
+using Registration.Model;
 
 namespace Registrstion.WinForms.Forms
 {
@@ -14,10 +15,13 @@ namespace Registrstion.WinForms.Forms
     {
         private IClientRequests _clientRequests;
         private Message.IMessageService _messageService;
-        IDictionary<string, string> databaseNamesAndConnectionStrings;
         private readonly IServiceProvider _serviceProvider;
-        public SingUpForm()
+  //      private IEnumerable<string> databasesNames;
+
+        public SingUpForm(IServiceProvider provider)
         {
+            _serviceProvider = provider;
+
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(singUp_Closing);
         }
@@ -75,9 +79,9 @@ namespace Registrstion.WinForms.Forms
 
         private void InitializeDatabaseNames()
         {
-            databaseNamesAndConnectionStrings = ClientRequests.GetDatabaseNamesAndConnectionStrings();
-            DatabaseNames = databaseNamesAndConnectionStrings.Keys;
-            SelectDatabaseName = databaseNamesAndConnectionStrings.First().Key;
+            //databasesNames = ;
+            DatabaseNames = ClientRequests.GetDatabasesNames();
+            SelectDatabaseName = DatabaseNames.First();
         }
 
         private void InitializeForm()
@@ -134,13 +138,14 @@ namespace Registrstion.WinForms.Forms
 
         private void singUpB_Click(object sender, EventArgs e)
         {
-            Program.ConnectionString = databaseNamesAndConnectionStrings[SelectDatabaseName];
+            IClientRequests clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
+            clientRequests.DatabaseName = SelectDatabaseName;
 
             Guid workerId = SingUp(NameW, Login, Password);
 
             if (Guid.Empty != workerId)
             {
-                Program.WorkerId = workerId;
+                 ((Worker)ServiceProvider.GetService(typeof(Worker))).Id = workerId;
             }
         }
 

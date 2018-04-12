@@ -150,6 +150,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="ConfigurationService.cs" />
+    <Compile Include="ConfigurationServiceFactory.cs" />
+    <Compile Include="ConfigurationServiceFactorySectionHandle.cs" />
     <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\DataBaseController.cs" />
     <Compile Include="Controllers\LetterController.cs" />
@@ -158,7 +161,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IDatabasesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebConfigurationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

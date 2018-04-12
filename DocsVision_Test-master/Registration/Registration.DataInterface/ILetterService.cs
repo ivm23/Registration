@@ -10,5 +10,7 @@ namespace Registration.DataInterface
         LetterView Get(Guid folderId, Guid workerId);
         void Delete(Guid letterId, Guid workerId, Guid folderId);
         void ChangeLetterIsRead(Guid letterId, Guid workerId);
+
+        IEnumerable<LetterType> GetAllLetterTypes();
     }
 }

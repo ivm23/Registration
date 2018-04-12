@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
+using Registration.Model;
 
 namespace Registrstion.WinForms
 {
@@ -15,13 +16,13 @@ namespace Registrstion.WinForms
 
         private readonly IServiceProvider _serviceProvider;
 
-        IDictionary<string, string> databaseNamesAndConnectionStrings;
+        IEnumerable<string> databasesNames;
 
         public Registration(IServiceProvider provider)
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(singUp_Closing);
-            _serviceProvider = provider;   
+            _serviceProvider = provider;
         }
 
         private IServiceProvider ServiceProvider => _serviceProvider;
@@ -39,14 +40,13 @@ namespace Registrstion.WinForms
         {
             InitializeClientService();
             InitializeMessage();
+            databasesNames = ClientRequests.GetDatabasesNames();
 
-            databaseNamesAndConnectionStrings = ClientRequests.GetDatabaseNamesAndConnectionStrings();
-
-            foreach (KeyValuePair<string,string> nameAndConnectionString in databaseNamesAndConnectionStrings)
+            foreach (string databaseName in databasesNames)
             {
-                databaseNamesCB.Items.Add(nameAndConnectionString.Key);
+                databaseNamesCB.Items.Add(databaseName);
             }
-            databaseNamesCB.SelectedItem = databaseNamesAndConnectionStrings.First().Key;
+            databaseNamesCB.SelectedItem = databasesNames.First();
         }
 
         private void InitializeClientService()
@@ -101,21 +101,23 @@ namespace Registrstion.WinForms
 
         private void singIn_Click(object sender, EventArgs e)
         {
-            Program.ConnectionString = databaseNamesAndConnectionStrings[databaseNamesCB.SelectedItem.ToString()];
+            IClientRequests clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
+            clientRequests.DatabaseName = databaseNamesCB.SelectedItem.ToString();
 
-               Program.WorkerId = SingIn(loginTB.Text, passwordTB.Text);
+            Worker worker = (Worker)(ServiceProvider.GetService(typeof(Worker)));
 
-            if (!Program.WorkerId.Equals(Guid.Empty))
+            worker.Id = SingIn(loginTB.Text, passwordTB.Text);
+
+            if (!worker.Id.Equals(Guid.Empty))
             {
                 Hide();
             }
-           
         }
 
         private void singUp_Click(object sender, EventArgs e)
         {
             Hide();
-            using (var singUpForm = new Forms.SingUpForm())
+            using (var singUpForm = new Forms.SingUpForm(ServiceProvider))
             {
                 singUpForm.ShowDialog();
             }

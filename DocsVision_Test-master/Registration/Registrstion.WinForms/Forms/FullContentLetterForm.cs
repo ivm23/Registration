@@ -47,7 +47,10 @@ namespace Registrstion.WinForms.Forms
             InitializeClientService();
             InitializeMessageService();
 
-            fullContentLetterControl1.FullContent = Program.LetterView;
+            var selectedLetterType = (LetterType)ServiceProvider.GetService(typeof(LetterType));
+            ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+
+            fullContentLetterControl1.FullContent = (LetterView)ServiceProvider.GetService(typeof(LetterView));
         }
 
         private void fullContentLetterControl1_Load(object sender, EventArgs e)
@@ -71,7 +74,7 @@ namespace Registrstion.WinForms.Forms
         {
             if (MessageService.QuestionMessage(Registrstion.WinForms.Message.MessageResource.DeleteLetter) == DialogResult.Yes)
             {
-                DeleteLetter(Program.LetterView, Program.WorkerId);
+                DeleteLetter((LetterView)ServiceProvider.GetService(typeof(LetterView)), ((Worker)ServiceProvider.GetService(typeof(Worker))).Id);
                 Close();
             }
         }

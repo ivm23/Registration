@@ -9,60 +9,66 @@ using System.Configuration;
 using System.ComponentModel.Design;
 using System.Web;
 
-
-namespace Reistration.Api.Controllers
+namespace Registration.Api.Controllers
 {
     public class LetterController : ApiController
     {
-        private static ServiceContainer _serviceFolderContainer = (ServiceContainer)HttpContext.Current.Application["serviceContainer"];
+        private static ServiceContainer _serviceContainer = (ServiceContainer)HttpContext.Current.Application["serviceContainer"];
 
         private IDictionary<string, ILetterService> _existLetterService = new Dictionary<string, ILetterService>();
 
-        private ILetterService getLetterService(string connectionString)
+        private ILetterService getLetterService(string databaseName)
         {
-            if (string.IsNullOrEmpty(connectionString))
+            if (string.IsNullOrEmpty(databaseName))
             {
-                throw new ArgumentNullException(nameof(connectionString));
+                throw new ArgumentNullException(nameof(databaseName));
             }
 
             ILetterService letterService;
-            if (!_existLetterService.TryGetValue(connectionString, out letterService))
+            if (!_existLetterService.TryGetValue(databaseName, out letterService))
             {
-                DatabaseService _databaseService = ((IDictionary<string, DatabaseService>)_serviceFolderContainer.GetService(typeof(IDictionary<string, DatabaseService>)))[connectionString];
+                DatabaseService _databaseService = ((IDatabasesService)_serviceContainer.GetService(typeof(IDatabasesService))).GetDatabasesService()[databaseName];
                 letterService = new LetterService(_databaseService);
-                _existLetterService.Add(connectionString, letterService);
+                _existLetterService.Add(databaseName, letterService);
             }
        
             return letterService;
         }
 
         [HttpPost]
-        [Route("api/{connectionString}/letter")]
-        public Letter Create([FromBody] LetterView letter, string connectionString)
+        [Route("api/{databaseName}/letter")]
+        public Letter Create([FromBody] LetterView letter, string databaseName)
         {
-            return getLetterService(connectionString).Create(letter); 
+            return getLetterService(databaseName).Create(letter); 
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/letter/{folderId}/{workerId}")]
-        public LetterView Get(Guid folderId, Guid workerId, string connectionString)
+        [Route("api/{databaseName}/letter/{folderId}/{workerId}")]
+        public LetterView Get(Guid folderId, Guid workerId, string databaseName)
         {
-            return getLetterService(connectionString).Get(folderId, workerId);
+            return getLetterService(databaseName).Get(folderId, workerId);
         }
 
         [HttpDelete]
-        [Route("api/{connectionString}/letter/{idLetter}/worker/{idWorker}/folder/{idFolder}")]
-        public void Delete(Guid idLetter, Guid idWorker, Guid idFolder, string connectionString)
+        [Route("api/{databaseName}/letter/{idLetter}/worker/{idWorker}/folder/{idFolder}")]
+        public void Delete(Guid idLetter, Guid idWorker, Guid idFolder, string databaseName)
         {
-            getLetterService(connectionString).Delete(idLetter, idWorker, idFolder);
+            getLetterService(databaseName).Delete(idLetter, idWorker, idFolder);
         }
 
         [HttpPut]
-        [Route("api/{connectionString}/letter/{letterId}/{workerId}")]
-        public bool LetterIsRead(Guid letterId, Guid workerId, [FromBody] int isRead, string connectionString)
+        [Route("api/{databaseName}/letter/{letterId}/{workerId}")]
+        public bool LetterIsRead(Guid letterId, Guid workerId, [FromBody] int isRead, string databaseName)
         {
-            getLetterService(connectionString).ChangeLetterIsRead(letterId, workerId);
+            getLetterService(databaseName).ChangeLetterIsRead(letterId, workerId);
             return true; 
+        }
+
+        [HttpGet]
+        [Route("api/{databaseName}/letter/types")]
+        public IEnumerable<LetterType> GetAllLetterTypes(string databaseName)
+        {
+            return getLetterService(databaseName).GetAllLetterTypes();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Registrstion.WinForms.Forms
 
         private Dictionary<string, TreeNode> _existSharedFoldersInTree;
         private Dictionary<string, Folder> _currentSharedFoldersInTree;
+        private IEnumerable<LetterType> letterTypes;
 
         private int _selectNodeIndex = 0;
 
@@ -131,7 +132,7 @@ namespace Registrstion.WinForms.Forms
         {
             foldersTV.Nodes.Clear();
 
-            IEnumerable<Folder> privateFolder = ClientRequests.GetAllWorkerFolders(Program.WorkerId);
+            IEnumerable<Folder> privateFolder = ClientRequests.GetAllWorkerFolders(((Worker)ServiceProvider.GetService(typeof(Worker))).Id);
             List<Guid> folderUsed = new List<Guid>();
             _existPrivateFoldersInTree = new Dictionary<string, TreeNode>();
             _currentPrivateFoldersInTree = new Dictionary<string, Folder>();
@@ -184,7 +185,7 @@ namespace Registrstion.WinForms.Forms
             IEnumerable<LetterView> letters = new List<LetterView>();
             try
             {
-                letters = GetWorkerLettersInFolder(folderId, Program.WorkerId);
+                letters = GetWorkerLettersInFolder(folderId, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id);
             }
             catch (Exception ex)
             {
@@ -213,6 +214,8 @@ namespace Registrstion.WinForms.Forms
         {
             InitializeTreeView();
 
+            InitializeNewLetterMenu();
+
             foldersTV.ExpandAll();
 
             foldersTV.SelectedNode = foldersTV.Nodes[0];
@@ -235,7 +238,7 @@ namespace Registrstion.WinForms.Forms
 
                 briefContentLetterDGV.Rows[selectRowIndex].DefaultCellStyle.BackColor = Color.White;
 
-                LetterIsRead(_lettersInfo[selectRowIndex].Id, Program.WorkerId);
+                LetterIsRead(_lettersInfo[selectRowIndex].Id, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id);
 
                 FullLetter = _lettersInfo[selectRowIndex];
             }
@@ -249,6 +252,33 @@ namespace Registrstion.WinForms.Forms
         private void InitializeMessageService()
         {
             _messageService = (Message.IMessageService)ServiceProvider.GetService(typeof(Message.IMessageService));
+        }
+
+        private void InitializeNewLetterMenu()
+        {
+            letterTypes = ClientRequests.GetAllLetterTypes();
+
+            //compose.DropDownItems.Clear();
+            toolStripComboBox1.SelectedIndexChanged += new EventHandler(toolStripComboBox1_SelectedIndexChanged);
+
+            toolStripComboBox1.Items.Clear();
+            foreach (LetterType letterType in letterTypes)
+            {
+                // compose.DropDownItems.Add(letterType.Name);
+                toolStripComboBox1.Items.Add(letterType);
+            }
+        }
+
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LetterType letterType = (LetterType)ServiceProvider.GetService(typeof(LetterType));
+            letterType = (LetterType)toolStripComboBox1.SelectedItem;
+
+            using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
+            {
+                makeLetterForm.ShowDialog();
+            }
+            InitializeMainWorkerForm();
         }
 
         private void MainWorkerForm_Load(object sender, EventArgs e)
@@ -279,11 +309,11 @@ namespace Registrstion.WinForms.Forms
         private void Compose_Click(object sender, EventArgs e)
         {
 
-            using (var makeLetterForm = new Forms.MakeLetterForm())
-            {
-                makeLetterForm.ShowDialog();
-            }
-            InitializeMainWorkerForm();
+            //using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
+            //{
+            //    makeLetterForm.ShowDialog();
+            //}
+            //InitializeMainWorkerForm();
 
         }
 
@@ -303,7 +333,7 @@ namespace Registrstion.WinForms.Forms
             {
                 int indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
 
-                DeleteLetter(_lettersInfo[indexOfSelectedRow], Program.WorkerId);
+                DeleteLetter(_lettersInfo[indexOfSelectedRow], ((Worker)ServiceProvider.GetService(typeof(Worker))).Id);
 
                 InitializeMainWorkerForm();
             }
@@ -313,7 +343,8 @@ namespace Registrstion.WinForms.Forms
         {
             int indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
 
-            Program.LetterView = _lettersInfo[indexOfSelectedRow];
+            LetterView letterView = (LetterView)ServiceProvider.GetService(typeof(LetterView));
+            letterView = _lettersInfo[indexOfSelectedRow];
 
             using (var fullContentLetterForm = new FullContentLetterForm(ServiceProvider))
             {
@@ -329,7 +360,13 @@ namespace Registrstion.WinForms.Forms
 
         private void foldersTV_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            Program.Folder = _currentPrivateFoldersInTree[e.Node.FullPath];
+            Folder folder = (Folder)ServiceProvider.GetService(typeof(Folder));
+            folder.Id = _currentPrivateFoldersInTree[e.Node.FullPath].Id;
+            folder.Name = _currentPrivateFoldersInTree[e.Node.FullPath].Name;
+            folder.OwnerId = _currentPrivateFoldersInTree[e.Node.FullPath].OwnerId;
+            folder.ParentId = _currentPrivateFoldersInTree[e.Node.FullPath].ParentId;
+            folder.Type = _currentPrivateFoldersInTree[e.Node.FullPath].Type;
+
             foldersTV.SelectedNode = e.Node;
 
             bool find = false;
@@ -416,7 +453,7 @@ namespace Registrstion.WinForms.Forms
 
         private void createFolderTSMI_Click(object sender, EventArgs e)
         {
-            using (var createFolderForm = new Forms.CreateFolderForm())
+            using (var createFolderForm = new Forms.CreateFolderForm(ServiceProvider))
             {
                 IEnumerable<FolderType> folderTypes = ClientRequests.GetAllFolderTypes();
 
@@ -433,7 +470,7 @@ namespace Registrstion.WinForms.Forms
 
         private void changeFolderTSMI_Click(object sender, EventArgs e)
         {
-            using (var renameForm = new Forms.RenameFolderForm())
+            using (var renameForm = new Forms.RenameFolderForm(ServiceProvider))
             {
                 renameForm.ShowDialog();
             }
@@ -443,7 +480,7 @@ namespace Registrstion.WinForms.Forms
         {
             if (MessageService.QuestionMessage(Registrstion.WinForms.Message.MessageResource.DeleteFolder) == DialogResult.Yes)
             {
-                ClientRequests.DeleteFolder(Program.Folder.Id);
+                ClientRequests.DeleteFolder(((Folder)ServiceProvider.GetService(typeof(Folder))).Id);
             }
 
         }

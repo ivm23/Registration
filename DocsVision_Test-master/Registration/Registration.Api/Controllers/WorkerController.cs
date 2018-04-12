@@ -9,7 +9,7 @@ using System.ComponentModel.Design;
 using System.Web;
 
 
-namespace Reistration.Api.Controllers
+namespace Registration.Api.Controllers
 {
     public class WorkerController : ApiController
     {
@@ -17,56 +17,56 @@ namespace Reistration.Api.Controllers
 
         private IDictionary<string, IWorkerService> _existWorkerService = new Dictionary<string, IWorkerService>();
 
-        private IWorkerService getWorkerService(string connectionString)
+        private IWorkerService getWorkerService(string databaseName)
         {
-            if (string.IsNullOrEmpty(connectionString))
+            if (string.IsNullOrEmpty(databaseName))
             {
-                throw new ArgumentNullException(nameof(connectionString));
+                throw new ArgumentNullException(nameof(databaseName));
             }
             IWorkerService workerService;
-            if (!_existWorkerService.TryGetValue(connectionString, out workerService))
+            if (!_existWorkerService.TryGetValue(databaseName, out workerService))
             {
-                DatabaseService _databaseService = ((IDictionary<string, DatabaseService>)_serviceFolderContainer.GetService(typeof(IDictionary<string, DatabaseService>)))[connectionString];
+                DatabaseService _databaseService = ((IDatabasesService)_serviceFolderContainer.GetService(typeof(IDatabasesService))).GetDatabasesService()[databaseName];
                 workerService = new WorkerService(_databaseService);
-                _existWorkerService.Add(connectionString, workerService);
+                _existWorkerService.Add(databaseName, workerService);
             }
             return workerService;
         }
 
 
         [HttpGet]
-        [Route("api/{connectionString}/worker/{login}/{password}")]
-        public Worker AuthorizationWorker(string login, string password, string connectionString)
+        [Route("api/{databaseName}/worker/{login}/{password}")]
+        public Worker AuthorizationWorker(string login, string password, string databaseName)
         {
-            return getWorkerService(connectionString).AuthorizationWorker(login, password);
+            return getWorkerService(databaseName).AuthorizationWorker(login, password);
         }
 
         [HttpPost]
-        [Route("api/{connectionString}/worker")]
-        public Worker Create([FromBody] Worker worker, string connectionString)
+        [Route("api/{databaseName}/worker")]
+        public Worker Create([FromBody] Worker worker, string databaseName)
         {
-            return getWorkerService(connectionString).Create(worker);
+            return getWorkerService(databaseName).Create(worker);
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/worker/{login}")]
-        public Worker Get(string login, string connectionString)
+        [Route("api/{databaseName}/worker/{login}")]
+        public Worker Get(string login, string databaseName)
         {
-            return getWorkerService(connectionString).Get(login);
+            return getWorkerService(databaseName).Get(login);
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/workers")]
-        public IEnumerable<Worker> GetAllWorkers(string connectionString)
+        [Route("api/{databaseName}/workers")]
+        public IEnumerable<Worker> GetAllWorkers(string databaseName)
         {
-            return getWorkerService(connectionString).GetAllWorkers();
+            return getWorkerService(databaseName).GetAllWorkers();
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/worker/{workerId}/name")]
-        public string GetWorkerName(Guid workerId, string connectionString)
+        [Route("api/{databaseName}/worker/{workerId}/name")]
+        public string GetWorkerName(Guid workerId, string databaseName)
         {
-            return getWorkerService(connectionString).GetWorkerName(workerId);
+            return getWorkerService(databaseName).GetWorkerName(workerId);
         }
 
     }

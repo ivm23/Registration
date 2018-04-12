@@ -15,6 +15,7 @@ namespace Registration.DataInterface.Sql
         const string SpGetReceivers = "sp_GetReceivers";
         const string SpDeleteLetter = "sp_DeleteLetter";
         const string SpUpdateLetterIsRead = "sp_UpdateIsRead";
+        const string SpGetAllLetterTypes = "sp_GetAllLetterTypes";
 
         const string IdLetterColumn = "@idLetter";
         const string IdWorkerColumn = "@idWorker";
@@ -26,6 +27,9 @@ namespace Registration.DataInterface.Sql
         const string IdFolderColumn = "@idFolder";
         const string IsReadColumn = "@isRead";
 
+        const string ExtendedDataColumn = "@extendedData";
+        const string LetterTypeIdColumn = "@type";
+
         const string Name = "name";
         const string IdSender = "idSender";
         const string Date = "date";
@@ -34,6 +38,11 @@ namespace Registration.DataInterface.Sql
         const string IsRead = "isRead";
         const string IdWorker = "idWorker";
         const string IdLetter = "idLetter";
+
+        const string ExtendedData = "extendedData";
+        const string LetterTypeId = "type";
+        const string Id = "id";
+        const string TypeClientUI = "typeClientUI";
 
         private DatabaseService _databaseService;
      
@@ -62,6 +71,8 @@ namespace Registration.DataInterface.Sql
                     DatabaseService.AddParameterWithValue(IdSenderColumn, letter.IdSender, command);
                     DatabaseService.AddParameterWithValue(TextColumn, letter.Text, command);
                     DatabaseService.AddParameterWithValue(DateColumn, letter.Date, command);
+                    DatabaseService.AddParameterWithValue(ExtendedDataColumn, letter.ExtendedData, command);
+                    DatabaseService.AddParameterWithValue(LetterTypeIdColumn, letter.Type, command);
 
                     DataTable data = new DataTable();
                     data.Columns.Add(IdLetter, typeof(Guid));
@@ -101,7 +112,9 @@ namespace Registration.DataInterface.Sql
                             Name = reader.GetString(reader.GetOrdinal(Name)),
                             IdSender = reader.GetGuid(reader.GetOrdinal(IdSender)),
                             Text = reader.GetString(reader.GetOrdinal(Text)),
-                            Date = reader.GetDateTime(reader.GetOrdinal(Date))
+                            Date = reader.GetDateTime(reader.GetOrdinal(Date)),
+                            ExtendedData = reader.GetString(reader.GetOrdinal(ExtendedData)),
+                            Type = reader.GetInt32(reader.GetOrdinal(LetterTypeId))
                         };
                         List<Guid> receiversId = new List<Guid>();
                         List<string> receiversName = new List<string>();
@@ -171,6 +184,38 @@ namespace Registration.DataInterface.Sql
                         DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
                         DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
                         command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<LetterType> GetAllLetterTypes()
+        {
+            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            {
+                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetAllLetterTypes, connection))
+                {
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        var allTypes = new List<LetterType>();
+                        while (reader.Read())
+                        {
+                            var type = new LetterType()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal(Id)),
+                                TypeClientUI = reader.GetString(reader.GetOrdinal(TypeClientUI)),
+                                Name = reader.GetString(reader.GetOrdinal(Name))
+                            };
+                            if (!string.IsNullOrEmpty(type.TypeClientUI))
+                            {
+                                allTypes.Add(type);
+                            }
+                        }
+                        if (allTypes.Count == 0)
+                        {
+                            throw new Exception("No types");
+                        }
+                        return allTypes;
                     }
                 }
             }

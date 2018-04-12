@@ -11,12 +11,17 @@ namespace Registration.ClientInterface
         private string _selectedDatabase;
         const string DatabaseNameMark = "Initial Catalog = ";
         const char SplitMark = ';';
-        private readonly string _connectionString;
+        private string _connectionString;
 
-        public ClientRequests(string _connectionString)
+        public string DatabaseName
+        {
+            set { _connectionString = value; }
+            get { return _connectionString; }
+        }
+
+        public ClientRequests()
         {
             _httpRequests = new HttpRequests("http://localhost:57893/api/");
-            this._connectionString = _connectionString;
         }
 
         public string SelectedDatabase
@@ -102,12 +107,12 @@ namespace Registration.ClientInterface
             HttpRequests.DeleteLetter(letter.Id, idWorker, letter.IdFolder, _connectionString);
         }
 
-        public IEnumerable<string> GetConnectionStrings()
+        public IEnumerable<string> GetDatabasesNames()
         {
-            return HttpRequests.GetConnectionsStrings();
+            return HttpRequests.GetDatabasesNames();
         }
 
-        public IDictionary<string,string> GetDatabaseNamesAndConnectionStrings()
+   /*     public IDictionary<string,string> GetDatabaseNamesAndConnectionStrings()
         {
             IEnumerable<string> connectionStrings = GetConnectionStrings();
 
@@ -125,7 +130,7 @@ namespace Registration.ClientInterface
                 databaseNamesAndConnectionStrings.Add(connectString.Substring(indexBeginName, indexEndName - indexBeginName), _connectionString);
             }
             return databaseNamesAndConnectionStrings;
-        }
+        }*/
 
         public string GetWorkerName(Guid workerId)
         {
@@ -177,6 +182,11 @@ namespace Registration.ClientInterface
         public FolderType GetFolderType(int folderTypeId)
         {
             return HttpRequests.GetFolderType(folderTypeId, _connectionString);
+        }
+
+        public IEnumerable<LetterType> GetAllLetterTypes()
+        {
+            return HttpRequests.GetAllLetterTypes(_connectionString);
         }
     }
 }

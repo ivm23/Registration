@@ -22,7 +22,7 @@ namespace Reistration.Api
 
             ServiceContainer = new ServiceContainer();
            
-            ServiceContainer.AddService(typeof(Registration.Api.DatabasesService), new Registration.Api.DatabasesService);
+            ServiceContainer.AddService(typeof(Registration.Api.IDatabasesService), new Registration.Api.DatabasesService());
 
             Application.Add(ServiceContainerMark, ServiceContainer);
         }
@@ -33,7 +33,7 @@ namespace Reistration.Api
             InitializeApplication();
         }
 
-        private ServiceContainer ServiceContainer
+        private static ServiceContainer ServiceContainer
         {
             set
             {

@@ -15,6 +15,7 @@ namespace Registrstion.WinForms.Forms
         private Message.IMessageService _messageService;
         private List<string> nameAndLoginReceivers;
         private readonly IServiceProvider _serviceProvider;
+
         public MakeLetterForm(IServiceProvider provider)
         {
             InitializeComponent();
@@ -76,7 +77,7 @@ namespace Registrstion.WinForms.Forms
 
         private void CreateLetter(string letterName, Guid workerId, IEnumerable<string> workerNameAndLogin, string letterText)
         {
-            ClientRequests.CreateLetter(letterName, Program.WorkerId, workerNameAndLogin, letterText);
+            ClientRequests.CreateLetter(letterName, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, workerNameAndLogin, letterText);
         }
 
         private bool SendLetter(string letterName, Guid workerId, IEnumerable<string> workerNameAndLogin, string letterText)
@@ -92,13 +93,13 @@ namespace Registrstion.WinForms.Forms
                 return false;
             }
 
-            CreateLetter(letterName, Program.WorkerId, workerNameAndLogin, letterText);
+            CreateLetter(letterName, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, workerNameAndLogin, letterText);
             return true;
         }
 
         private void SendLetterB_Click(object sender, EventArgs e)
         {   
-            if (SendLetter(NameLetter, Program.WorkerId, NamesAndLoginsReceivers, TextLetter))
+            if (SendLetter(NameLetter, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, NamesAndLoginsReceivers, TextLetter))
             {
                 MessageService.InfoMessage(Registrstion.WinForms.Message.MessageResource.SentLetter);
 
@@ -132,9 +133,13 @@ namespace Registrstion.WinForms.Forms
             InitializeClientService();
             InitializeMessageService();
             fullContentLetterControl1.ReadOnly = false;
-            fullContentLetterControl1.NameSender = GetWorkerName(Program.WorkerId);
+            fullContentLetterControl1.NameSender = GetWorkerName(((Worker)ServiceProvider.GetService(typeof(Worker))).Id);
 
             AllWorkers = GetAllWorkers();
+
+            var selectedLetterType = (LetterType)ServiceProvider.GetService(typeof(LetterType));
+            ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+
         }
 
         private void MakeLetterForm_Load(object sender, EventArgs e)

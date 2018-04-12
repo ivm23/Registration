@@ -31,16 +31,17 @@ namespace Registrstion.WinForms.Forms
         private Point _baseSizeHeight;
         private readonly IServiceProvider _serviceProvider;
 
-        private IServiceProvider ServiceProvider => _serviceProvider;
 
-        public CreateFolderForm()
+        public CreateFolderForm(IServiceProvider provider)
         {
             InitializeComponent();
             _newButtonsControl = new Controlers.ButtonCreateCancelControl();        
             this._newButtonsControl.CreateB.Click += new EventHandler(CreateFolder);
             this.comboFolderType.DropDownClosed += new EventHandler(FolderTypeIsChange);
+            _serviceProvider = provider;
         }
 
+        private IServiceProvider ServiceProvider => _serviceProvider;
 
         private Point BaseSizeHeight
         {
@@ -138,7 +139,7 @@ namespace Registrstion.WinForms.Forms
 
         private void CreateFolder(object sender, EventArgs e)
         {
-            IFolderPropertiesUIPlugin clientUIPlugin = ((PluginService)(Program.GetServiceContainer().GetService(typeof(PluginService)))).GetFolderPropetiesPlugin(SelectedFolderType);
+            IFolderPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetFolderPropetiesPlugin(SelectedFolderType);
             global::Registration.Model.FolderProperties folderProp = clientUIPlugin.Info;
 
             StringBuilder data = new StringBuilder();
@@ -150,14 +151,14 @@ namespace Registrstion.WinForms.Forms
                 }
             }
 
-            ClientRequests.CreateFolder(Program.Folder.Id, FolderName, Program.WorkerId, SelectedFolderType.Id, data.ToString());
+            ClientRequests.CreateFolder(((Folder)ServiceProvider.GetService(typeof(Folder))).Id, FolderName, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, SelectedFolderType.Id, data.ToString());
         }
 
         void FolderTypeIsChange(object sender, EventArgs e)
         {         
             FolderType selectedFolderType = SelectedFolderType;
 
-            IFolderPropertiesUIPlugin clientUIPlugin = ((PluginService)(Program.GetServiceContainer().GetService(typeof(PluginService)))).GetFolderPropetiesPlugin(SelectedFolderType);
+            IFolderPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetFolderPropetiesPlugin(SelectedFolderType);
 
             var allWorkersInfo = new FolderProperties();
             var allWorkers = ClientRequests.GetAllWorkers();

@@ -17,12 +17,16 @@ namespace Registration.Api.Controllers
         [Route("api/database")]
         public IEnumerable<string> GetConnectionStrings()
         {
-            List<string> allConnectionsStrings = new List<string>();
-            foreach (string key in ConfigurationManager.AppSettings.AllKeys)
+            ConfigurationService configurationService = ConfigurationServiceFactory.InitializeConfigurationService();
+
+            IList<string> connectionStringKeys = configurationService.GetConnectionStringKeys();
+
+            var allConnectionsStrings = new List<string>();
+            foreach (string key in connectionStringKeys)
             {
                 if (key.Contains("connectionString"))
                 {
-                    allConnectionsStrings.Add(ConfigurationManager.AppSettings[key]);
+                    allConnectionsStrings.Add(configurationService.GetConnectionString(key));
                 }
             }
             return allConnectionsStrings;

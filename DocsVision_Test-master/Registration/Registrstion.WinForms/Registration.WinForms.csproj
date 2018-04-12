@@ -100,6 +100,12 @@
     <Compile Include="Controlers\InboxFolderControl.Designer.cs">
       <DependentUpon>InboxFolderControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controlers\LetterWithResponseTimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\LetterWithResponseTimeControl.Designer.cs">
+      <DependentUpon>LetterWithResponseTimeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controlers\SearchFolderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -173,6 +179,7 @@
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IFolderPropertiesUIPlugin.cs" />
+    <Compile Include="ILetterPropertiesUIPlugin.cs" />
     <Compile Include="IPluginService.cs" />
     <Compile Include="Message\IMessageService.cs" />
     <Compile Include="Message\MessageService.cs" />
@@ -192,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controlers\InboxFolderControl.resx">
       <DependentUpon>InboxFolderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\LetterWithResponseTimeControl.resx">
+      <DependentUpon>LetterWithResponseTimeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controlers\SearchFolderControl.resx">
       <DependentUpon>SearchFolderControl.cs</DependentUpon>
@@ -228,12 +238,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuthorizationForm.resx">
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SingUpForm.ru-BY.resx">
-      <DependentUpon>SingUpForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SingUpForm.ru.resx">
-      <DependentUpon>SingUpForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Message\MessageResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>

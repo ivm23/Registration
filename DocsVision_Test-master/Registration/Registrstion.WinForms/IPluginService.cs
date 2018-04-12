@@ -10,5 +10,6 @@ namespace Registrstion.WinForms
     interface IPluginService
     {
         IFolderPropertiesUIPlugin GetFolderPropetiesPlugin(FolderType selectedFolderType);
+        ILetterPropertiesUIPlugin GetLetterPropetiesPlugin(LetterType selectedLetterType);
     }
 }

@@ -29,11 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWorkerForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWorkerForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.compose = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteLetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.foldersTV = new System.Windows.Forms.TreeView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -47,6 +46,8 @@
             this.createFolderTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.changeFolderTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFolderTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.compose = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -71,14 +72,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1213, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // compose
-            // 
-            this.compose.Image = ((System.Drawing.Image)(resources.GetObject("compose.Image")));
-            this.compose.Name = "compose";
-            this.compose.Size = new System.Drawing.Size(92, 20);
-            this.compose.Text = "New Letter";
-            this.compose.Click += new System.EventHandler(this.Compose_Click);
             // 
             // deleteLetterToolStripMenuItem
             // 
@@ -250,11 +243,26 @@
             this.deleteFolderTSMI.Text = "Delete folder";
             this.deleteFolderTSMI.Click += new System.EventHandler(this.deleteFolderTSMI_Click);
             // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            // 
+            // compose
+            // 
+            this.compose.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
+            this.compose.Image = ((System.Drawing.Image)(resources.GetObject("compose.Image")));
+            this.compose.Name = "compose";
+            this.compose.Size = new System.Drawing.Size(92, 20);
+            this.compose.Text = "New Letter";
+            this.compose.Click += new System.EventHandler(this.Compose_Click);
+            // 
             // MainWorkerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1213, 557);
+            this.ClientSize = new System.Drawing.Size(1213, 558);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitContainer1);
             this.MainMenuStrip = this.menuStrip1;
@@ -282,7 +290,6 @@
 
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem compose;
         private System.Windows.Forms.ToolStripMenuItem deleteLetterToolStripMenuItem;
         private System.Windows.Forms.TreeView foldersTV;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -296,5 +303,7 @@
         private System.Windows.Forms.ToolStripMenuItem createFolderTSMI;
         private System.Windows.Forms.ToolStripMenuItem changeFolderTSMI;
         private System.Windows.Forms.ToolStripMenuItem deleteFolderTSMI;
+        private System.Windows.Forms.ToolStripMenuItem compose;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }

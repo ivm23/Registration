@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Registration.Model
 {
     public class Letter
@@ -16,6 +17,15 @@ namespace Registration.Model
         public string Text { get; set; }
         public bool IsRead { get; set; }
         public Guid IdFolder { get; set; }
+        public string ExtendedData { get; set; }
+        public int Type { get; set; }
+    }
+
+    public class LetterType
+    {
+        public int Id { get; set; }
+        public string TypeClientUI { get; set; }
+        public string Name { get; set; }
     }
 
     public class LetterView : Letter

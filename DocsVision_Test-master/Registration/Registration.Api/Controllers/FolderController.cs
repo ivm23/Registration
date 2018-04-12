@@ -20,19 +20,19 @@ namespace Registration.Api.Controllers
 
         private IDictionary<string, IFolderTreeService> _existFolderTreeService = new Dictionary<string, IFolderTreeService>();
 
-        private IFolderTreeService getFolderTreeService(string connectionString)
+        private IFolderTreeService getFolderTreeService(string databaseName)
         {
-            if (string.IsNullOrEmpty(connectionString))
+            if (string.IsNullOrEmpty(databaseName))
             {
-                throw new ArgumentNullException(nameof(connectionString));
+                throw new ArgumentNullException(nameof(databaseName));
             }
            
             IFolderTreeService folderTreeService;
-            if (!_existFolderTreeService.TryGetValue(connectionString, out folderTreeService))
+            if (!_existFolderTreeService.TryGetValue(databaseName, out folderTreeService))
             {
-                DatabaseService _databaseService = ((DatabasesService)_serviceFolderContainer.GetService(typeof(DatabasesService))).GetDatabasesService()[connectionString];
+                DatabaseService _databaseService = ((IDatabasesService)_serviceFolderContainer.GetService(typeof(IDatabasesService))).GetDatabasesService()[databaseName];
                 folderTreeService = new FolderTreeService(_databaseService);
-                _existFolderTreeService.Add(connectionString, folderTreeService);
+                _existFolderTreeService.Add(databaseName, folderTreeService);
             }
 
             return folderTreeService;
@@ -40,67 +40,67 @@ namespace Registration.Api.Controllers
 
 
         [HttpPost]
-        [Route("api/{connectionString}/folder")]
-        public Folder CreateFolder([FromBody] Folder folder, string connectionString)
+        [Route("api/{databaseName}/folder")]
+        public Folder CreateFolder([FromBody] Folder folder, string databaseName)
         {           
-            return getFolderTreeService(connectionString).Create(folder);
+            return getFolderTreeService(databaseName).Create(folder);
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/allFolders")]
-        public string GetHierarchy(string connectionString)
+        [Route("api/{databaseName}/allFolders")]
+        public string GetHierarchy(string databaseName)
         {
-            return getFolderTreeService(connectionString).GetAllFolders();
+            return getFolderTreeService(databaseName).GetAllFolders();
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/letters/folder/{folderId}/{ownerId}")]
-        public IEnumerable<LetterView> GetLettersInFolder(Guid folderId, Guid ownerId, string connectionString)
+        [Route("api/{databaseName}/letters/folder/{folderId}/{ownerId}")]
+        public IEnumerable<LetterView> GetLettersInFolder(Guid folderId, Guid ownerId, string databaseName)
         {
-            return getFolderTreeService(connectionString).GetFolderService(folderId).GetLettersInFolder(folderId);
+            return getFolderTreeService(databaseName).GetFolderService(folderId).GetLettersInFolder(folderId);
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/count/letters/{folderId}")]
-        public int GetCountLettersInFolder(Guid folderId, string connectionString)
+        [Route("api/{databaseName}/count/letters/{folderId}")]
+        public int GetCountLettersInFolder(Guid folderId, string databaseName)
         {
-            return getFolderTreeService(connectionString).GetFolderService(folderId).GetCountLettersInFolder(folderId);
+            return getFolderTreeService(databaseName).GetFolderService(folderId).GetCountLettersInFolder(folderId);
         }
 
         [HttpPut]
-        [Route("api/{connectionString}/folder/update")]
-        public Folder ChangeLetterText([FromBody] Folder folder, string connectionString)
+        [Route("api/{databaseName}/folder/update")]
+        public Folder ChangeLetterText([FromBody] Folder folder, string databaseName)
         {
-            return getFolderTreeService(connectionString).Update(folder);
+            return getFolderTreeService(databaseName).Update(folder);
         }
 
 
         [HttpDelete]
-        [Route("api/{connectionString}/folder/{folderId}")]
-        public void Delete(Guid folderId, string connectionString)
+        [Route("api/{databaseName}/folder/{folderId}")]
+        public void Delete(Guid folderId, string databaseName)
         {
-            getFolderTreeService(connectionString).Delete(folderId);
+            getFolderTreeService(databaseName).Delete(folderId);
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/folders/{workerId}")]
-        public IEnumerable<Folder> GetHierarchy(Guid workerId, string connectionString)
+        [Route("api/{databaseName}/folders/{workerId}")]
+        public IEnumerable<Folder> GetHierarchy(Guid workerId, string databaseName)
         {
-            return getFolderTreeService(connectionString).GetAllWorkerFolders(workerId);
+            return getFolderTreeService(databaseName).GetAllWorkerFolders(workerId);
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/folder/types")]
-        public IEnumerable<FolderType> GetAllFolderTypes(string connectionString)
+        [Route("api/{databaseName}/folder/types")]
+        public IEnumerable<FolderType> GetAllFolderTypes(string databaseName)
         {
-            return getFolderTreeService(connectionString).GetAllFolderTypes();
+            return getFolderTreeService(databaseName).GetAllFolderTypes();
         }
 
         [HttpGet]
-        [Route("api/{connectionString}/folder/{folderTypeId}/type")]
-        public FolderType GetFolderType(int folderTypeId, string connectionString)
+        [Route("api/{databaseName}/folder/{folderTypeId}/type")]
+        public FolderType GetFolderType(int folderTypeId, string databaseName)
         {
-            return getFolderTreeService(connectionString).GetFolderType(folderTypeId);
+            return getFolderTreeService(databaseName).GetFolderType(folderTypeId);
         }
     }
 }

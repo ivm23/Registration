@@ -104,7 +104,7 @@ namespace Registration.ClientInterface
             return _client.GetAsync($"{connectionString}/workers").Result.Content.ReadAsAsync<IEnumerable<Worker>>().Result;
         }
 
-        public IEnumerable<string> GetConnectionsStrings()
+        public IEnumerable<string> GetDatabasesNames()
         {
             return _client.GetAsync("database").Result.Content.ReadAsAsync<IEnumerable<string>>().Result;
         }
@@ -174,6 +174,11 @@ namespace Registration.ClientInterface
         public FolderType GetFolderType(int folderTypeId, string connectionString)
         {
             return _client.GetAsync($"{connectionString}/folder/{folderTypeId}/type").Result.Content.ReadAsAsync<FolderType>().Result;
+        }
+
+        public IEnumerable<LetterType> GetAllLetterTypes(string connectionString)
+        {
+            return _client.GetAsync($"{connectionString}/letter/types").Result.Content.ReadAsAsync<IEnumerable<LetterType>>().Result;
         }
     }
 }

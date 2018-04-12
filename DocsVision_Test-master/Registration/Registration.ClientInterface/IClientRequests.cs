@@ -6,6 +6,7 @@ namespace Registration.ClientInterface
 {
     public interface IClientRequests
     {
+        string DatabaseName { get; set; }
         string SelectedDatabase { set; get; }
         bool WorkerIsExist(string workerLogin);
         Guid AcceptAuthorisation(string workerLogin, string workerPassword);
@@ -13,9 +14,10 @@ namespace Registration.ClientInterface
         IEnumerable<LetterView> GetLetterView(Guid id);
         bool LetterIsRead(Guid letterId, Guid workerId);
         IEnumerable<string> GetAllWorkers();
+
         void CreateLetter(string letterName, Guid senderId, IEnumerable<string> workerNameAndLogin, string letterText);
         void DeleteLetter(LetterView letter, Guid idWorker);
-        IEnumerable<string> GetConnectionStrings();
+      
         string GetWorkerName(Guid workerId);
 
         IEnumerable<Folder> GetAllWorkerFolders(Guid workerId);
@@ -30,6 +32,9 @@ namespace Registration.ClientInterface
         IEnumerable<FolderType> GetAllFolderTypes();
 
         FolderType GetFolderType(int folderTypeId);
-        IDictionary<string, string> GetDatabaseNamesAndConnectionStrings();
+
+        IEnumerable<string> GetDatabasesNames();
+
+        IEnumerable<LetterType> GetAllLetterTypes();
     }
 }
