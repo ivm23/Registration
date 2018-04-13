@@ -26,6 +26,8 @@ namespace Registration.DataInterface.Sql
         const string Date = "date";
         const string NameWorker = "nameWorker";
         const string CountLetters = "countLetters";
+        const string TypeLetter = "type";
+        const string ExtendedData = "extendedData";
 
         public SentFolderService(DatabaseService _databaseService) : base(_databaseService) {}
 
@@ -71,6 +73,8 @@ namespace Registration.DataInterface.Sql
                                 Date = reader.GetDateTime(reader.GetOrdinal(Date)),
                                 SenderName = reader.GetString(reader.GetOrdinal(NameWorker)),
                                 IdFolder = folderId,
+                                Type = reader.GetInt32(reader.GetOrdinal(TypeLetter)),
+                                ExtendedData = reader.GetString(reader.GetOrdinal(ExtendedData)),
                                 IsRead = true
                             };
 

@@ -86,13 +86,15 @@ namespace Registration.ClientInterface
             return nameAndLoginAllWorkers;
         }
 
-        public void CreateLetter(string letterName, Guid senderId, IEnumerable<string> workerNameAndLogin, string letterText)
+        public void CreateLetter(string letterName, Guid senderId, IEnumerable<string> workerNameAndLogin, string letterText, string extendedData, int type)
         {
             Letter newLetter = new Letter()
             {
                 Name = letterName,
                 Text = letterText,
-                IdSender = senderId
+                IdSender = senderId,
+                Type = type,
+                ExtendedData = extendedData
             };
 
             foreach (string worker in workerNameAndLogin)

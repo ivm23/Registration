@@ -15,7 +15,7 @@ namespace Registration.ClientInterface
         bool LetterIsRead(Guid letterId, Guid workerId);
         IEnumerable<string> GetAllWorkers();
 
-        void CreateLetter(string letterName, Guid senderId, IEnumerable<string> workerNameAndLogin, string letterText);
+        void CreateLetter(string letterName, Guid senderId, IEnumerable<string> workerNameAndLogin, string letterText, string extendedData, int type);
         void DeleteLetter(LetterView letter, Guid idWorker);
       
         string GetWorkerName(Guid workerId);

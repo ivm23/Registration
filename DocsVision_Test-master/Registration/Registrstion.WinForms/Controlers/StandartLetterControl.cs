@@ -12,13 +12,13 @@ using System.Xml;
 
 namespace Registrstion.WinForms.Controlers
 {
-    public partial class LetterWithResponseTimeControl : UserControl, ILetterPropertiesUIPlugin
+    public partial class StandartLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
-        FolderProperties _info;
-        public LetterWithResponseTimeControl()
+        public StandartLetterControl()
         {
             InitializeComponent();
         }
+        FolderProperties _info;
 
         public void OnLoad()
         {
@@ -37,20 +37,7 @@ namespace Registrstion.WinForms.Controlers
                 {
                     _info = new FolderProperties();
                 }
-
-                XmlElement elem = _info.Info.CreateElement(dateTimePickerResponseRequired.Name);
-                elem.InnerText = dateTimePickerResponseRequired.Text;
-                _info.Info.AppendChild(elem);
-
                 return _info;
-            }
-        }
-
-        public bool ReadOnly
-        {
-            set
-            {
-                dateTimePickerResponseRequired.Enabled = value;
             }
         }
     }

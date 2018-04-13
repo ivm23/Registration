@@ -95,6 +95,12 @@
     <Compile Include="Controlers\FullContentLetterControl.Designer.cs">
       <DependentUpon>FullContentLetterControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controlers\ImportantLetterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\ImportantLetterControl.Designer.cs">
+      <DependentUpon>ImportantLetterControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controlers\InboxFolderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -124,6 +130,12 @@
     </Compile>
     <Compile Include="Controlers\SingUpControl.Designer.cs">
       <DependentUpon>SingUpControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\StandartLetterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\StandartLetterControl.Designer.cs">
+      <DependentUpon>StandartLetterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controlers\UnreadFolderControl.cs">
       <SubType>UserControl</SubType>
@@ -198,6 +210,9 @@
     <EmbeddedResource Include="Controlers\FullContentLetterControl.resx">
       <DependentUpon>FullContentLetterControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\ImportantLetterControl.resx">
+      <DependentUpon>ImportantLetterControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controlers\InboxFolderControl.resx">
       <DependentUpon>InboxFolderControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controlers\SingUpControl.resx">
       <DependentUpon>SingUpControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\StandartLetterControl.resx">
+      <DependentUpon>StandartLetterControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controlers\UnreadFolderControl.resx">
       <DependentUpon>UnreadFolderControl.cs</DependentUpon>

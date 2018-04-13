@@ -4,6 +4,9 @@ using Registration.Model;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
+using System.Drawing;
+using System.Collections.Generic;
+using System.Xml;
 
 namespace Registrstion.WinForms.Forms
 {
@@ -13,11 +16,36 @@ namespace Registrstion.WinForms.Forms
         private Message.IMessageService _messageService;
         private readonly IServiceProvider _serviceProvider;
 
+        private List<Control> _baseControls;
+        private Point _baseSizeHeight;
 
         public FullContentLetterForm(IServiceProvider provider)
         {
             _serviceProvider = provider;
             InitializeComponent();
+        }
+
+        private Point BaseSizeHeight
+        {
+            get { return _baseSizeHeight; }
+        }
+        private List<Control> BaseControls
+        {
+            get { return _baseControls; }
+        }
+        private void InitializeBaseControls()
+        {
+            _baseControls = new List<Control>();
+            foreach (Control control in this.Controls)
+            {
+                BaseControls.Add(control);
+            }
+            InitializeBaseSizeHeight();
+        }
+
+        private void InitializeBaseSizeHeight()
+        {
+            _baseSizeHeight = new Point(this.Size.Width, this.Size.Height);
         }
 
         private IServiceProvider ServiceProvider => _serviceProvider;
@@ -46,12 +74,54 @@ namespace Registrstion.WinForms.Forms
         {
             InitializeClientService();
             InitializeMessageService();
+            InitializeBaseControls();
 
-            var selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
+            LetterView letterView = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
 
-            ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+            LetterType selectedLetterType = ClientRequests.GetLetterType(letterView.Type);
 
-            fullContentLetterControl1.FullContent = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+        
+            ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+            //newControl. = false;
+            FolderProperties prop = new FolderProperties() { };
+
+            XmlElement elem = prop.Info.CreateElement(letterView.ExtendedData);
+            elem.InnerText = letterView.ExtendedData;
+            prop.Info.AppendChild(elem);
+
+            newControl.Info = prop;
+           
+            fullContentLetterControl1.FullContent = letterView;
+
+            int minXLocation = int.MaxValue;
+            int minYLocation = int.MaxValue;
+            int sizeForMinYLocation = 0;
+
+            foreach (Control control in BaseControls)
+            {
+                minXLocation = Math.Min(control.Location.X, minXLocation);
+                
+                if (control.Location.Y < minYLocation)
+                {
+                    minYLocation = control.Location.Y;
+                    sizeForMinYLocation = control.Size.Height;
+                }
+            }
+            ((Control)newControl).Location = new Point(minXLocation, minYLocation + sizeForMinYLocation);
+
+            int width = Math.Max(BaseSizeHeight.X, ((Control)newControl).Width);
+
+            this.Controls.Clear();
+
+            this.Size = new Size(width, BaseSizeHeight.Y + ((Control)newControl).Size.Height);
+       
+            this.Controls.Add(((Control)newControl));
+            
+            foreach (Control control in BaseControls)
+            {
+                control.Location = new System.Drawing.Point(control.Location.X, control.Location.Y + ((Control)newControl).Size.Height);
+                this.Controls.Add(control);
+            }
         }
 
         private void fullContentLetterControl1_Load(object sender, EventArgs e)

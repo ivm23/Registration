@@ -151,7 +151,7 @@ namespace Registrstion.WinForms.Forms
 
         private void singUp_Closing(object sender, FormClosingEventArgs e)
         {
-            Program.CloseReason = e.CloseReason;
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CloseReason = e.CloseReason;
         }
     }
 

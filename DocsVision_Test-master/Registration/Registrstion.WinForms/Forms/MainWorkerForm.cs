@@ -25,7 +25,8 @@ namespace Registrstion.WinForms.Forms
 
         private Dictionary<string, TreeNode> _existSharedFoldersInTree;
         private Dictionary<string, Folder> _currentSharedFoldersInTree;
-        private IEnumerable<LetterType> letterTypes;
+        private IEnumerable<LetterType> _letterTypes;
+        private IList<LetterType> _comboLettersTypes = new List<LetterType>();
 
         private int _selectNodeIndex = 0;
 
@@ -61,7 +62,7 @@ namespace Registrstion.WinForms.Forms
             {
                 if (value != null)
                 {
-                    fullContentLetterControl1.FullContent = value;
+                    fullContentLetterControl1.FullContent = value;                   
                 }
             }
         }
@@ -256,31 +257,35 @@ namespace Registrstion.WinForms.Forms
 
         private void InitializeNewLetterMenu()
         {
-            letterTypes = ClientRequests.GetAllLetterTypes();
+            _letterTypes = ClientRequests.GetAllLetterTypes();
 
-            //compose.DropDownItems.Clear();
             toolStripComboBox1.SelectedIndexChanged += new EventHandler(toolStripComboBox1_SelectedIndexChanged);
 
             toolStripComboBox1.Items.Clear();
-            foreach (LetterType letterType in letterTypes)
+            foreach (LetterType letterType in _letterTypes)
             {
-                // compose.DropDownItems.Add(letterType.Name);
-                toolStripComboBox1.Items.Add(letterType);
+                toolStripComboBox1.Items.Add(letterType.Name);
+                _comboLettersTypes.Add(letterType);
             }
+            toolStripComboBox1.SelectedItem = 0;
         }
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             LetterType letterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
-            letterType.Id = ((LetterType)toolStripComboBox1.SelectedItem).Id;
-            letterType.Name = ((LetterType)toolStripComboBox1.SelectedItem).Name;
-            letterType.TypeClientUI = ((LetterType)toolStripComboBox1.SelectedItem).TypeClientUI;
 
-            using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
+            if (null != _comboLettersTypes[toolStripComboBox1.SelectedIndex])
             {
-                makeLetterForm.ShowDialog();
+                letterType.Id = _comboLettersTypes[toolStripComboBox1.SelectedIndex].Id;
+                letterType.Name = _comboLettersTypes[toolStripComboBox1.SelectedIndex].Name;
+                letterType.TypeClientUI = _comboLettersTypes[toolStripComboBox1.SelectedIndex].TypeClientUI;
+
+                using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
+                {
+                    makeLetterForm.ShowDialog();
+                }
+                InitializeMainWorkerForm();
             }
-            InitializeMainWorkerForm();
         }
 
         private void MainWorkerForm_Load(object sender, EventArgs e)
@@ -292,7 +297,7 @@ namespace Registrstion.WinForms.Forms
             {
                 form.ShowDialog();
             }
-            if (Program.CloseReason == CloseReason.UserClosing) { Close(); }
+            if (((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CloseReason == CloseReason.UserClosing) { Close(); }
 
             try
             {
@@ -310,13 +315,11 @@ namespace Registrstion.WinForms.Forms
 
         private void Compose_Click(object sender, EventArgs e)
         {
-
             //using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
             //{
             //    makeLetterForm.ShowDialog();
             //}
             //InitializeMainWorkerForm();
-
         }
 
         private void DeleteLetter(LetterView letterView, Guid workerId)
