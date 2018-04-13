@@ -12,20 +12,20 @@ using System.Xml;
 
 namespace Registrstion.WinForms.Controlers
 {
-    public partial class StandartLetterControl : UserControl, ILetterPropertiesUIPlugin
+    public partial class StandartLetterControl : UserControl //ILetterPropertiesUIPlugin
     {
         public StandartLetterControl()
         {
             InitializeComponent();
         }
-        FolderProperties _info;
+        LetterProperties _info;
 
         public void OnLoad()
         {
 
         }
 
-        public FolderProperties Info
+        public LetterProperties Properties
         {
             set
             {
@@ -35,7 +35,7 @@ namespace Registrstion.WinForms.Controlers
             {
                 if (null == _info)
                 {
-                    _info = new FolderProperties();
+                    _info = new LetterProperties();
                 }
                 return _info;
             }

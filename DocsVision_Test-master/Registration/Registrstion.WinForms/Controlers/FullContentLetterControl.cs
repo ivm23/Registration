@@ -11,12 +11,25 @@ using Registration.Model;
 
 namespace Registrstion.WinForms.Controlers
 {
-    internal partial class FullContentLetterControl : UserControl
+    internal partial class FullContentLetterControl : UserControl//, ILetterPropertiesUIPlugin
     {
+        public event EventHandler AddReceiver;
         public FullContentLetterControl()
         {
             InitializeComponent();
         }
+
+        public void OnLoad()
+        {
+
+        }
+
+        public LetterProperties Properties
+        {
+            set;
+            get;
+        }
+
         public string NameLetter
         {
             set
@@ -140,5 +153,9 @@ namespace Registrstion.WinForms.Controlers
             }
         }
 
+        private void sendLetterB_Click(object sender, EventArgs e)
+        {
+            AddReceiver(sender, e);
+        }
     }
 }

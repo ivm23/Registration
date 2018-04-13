@@ -39,6 +39,7 @@
             this.textLetterTB = new System.Windows.Forms.TextBox();
             this.nameReceiversCB = new System.Windows.Forms.ComboBox();
             this.nameReceiversTB = new System.Windows.Forms.TextBox();
+            this.addReceiversB = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelName
@@ -111,7 +112,7 @@
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(16, 142);
+            this.labelMessage.Location = new System.Drawing.Point(16, 138);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(50, 13);
             this.labelMessage.TabIndex = 8;
@@ -122,7 +123,7 @@
             this.textLetterTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textLetterTB.Location = new System.Drawing.Point(19, 158);
+            this.textLetterTB.Location = new System.Drawing.Point(19, 154);
             this.textLetterTB.Multiline = true;
             this.textLetterTB.Name = "textLetterTB";
             this.textLetterTB.ReadOnly = true;
@@ -152,10 +153,21 @@
             this.nameReceiversTB.Size = new System.Drawing.Size(330, 20);
             this.nameReceiversTB.TabIndex = 11;
             // 
+            // addReceiversB
+            // 
+            this.addReceiversB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.addReceiversB.Location = new System.Drawing.Point(394, 111);
+            this.addReceiversB.Name = "addReceiversB";
+            this.addReceiversB.Size = new System.Drawing.Size(87, 23);
+            this.addReceiversB.TabIndex = 12;
+            this.addReceiversB.Text = "Add";
+            this.addReceiversB.UseVisualStyleBackColor = true;
+            // 
             // FullContentLetterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.addReceiversB);
             this.Controls.Add(this.nameReceiversTB);
             this.Controls.Add(this.nameReceiversCB);
             this.Controls.Add(this.textLetterTB);
@@ -187,5 +199,6 @@
         private System.Windows.Forms.TextBox textLetterTB;
         private System.Windows.Forms.ComboBox nameReceiversCB;
         private System.Windows.Forms.TextBox nameReceiversTB;
+        private System.Windows.Forms.Button addReceiversB;
     }
 }

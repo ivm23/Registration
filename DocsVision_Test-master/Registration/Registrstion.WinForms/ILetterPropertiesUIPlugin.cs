@@ -10,6 +10,11 @@ namespace Registrstion.WinForms
     public interface ILetterPropertiesUIPlugin
     {
         void OnLoad();
-        FolderProperties Info { set; get; }
+        LetterProperties Properties { set; get; }
+
+        event EventHandler AddReceiver;
+
+        bool ReadOnly { set; }
+
     }
 }

@@ -19,6 +19,8 @@ namespace Registrstion.WinForms.Forms
         private List<Control> _baseControls;
         private Point _baseSizeHeight;
 
+      
+
         public FullContentLetterForm(IServiceProvider provider)
         {
             _serviceProvider = provider;
@@ -82,14 +84,14 @@ namespace Registrstion.WinForms.Forms
 
         
             ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
-            //newControl. = false;
-            FolderProperties prop = new FolderProperties() { };
 
-            XmlElement elem = prop.Info.CreateElement(letterView.ExtendedData);
+            LetterProperties prop = new LetterProperties() { };
+
+            XmlElement elem = prop.Properties.CreateElement(letterView.ExtendedData);
             elem.InnerText = letterView.ExtendedData;
-            prop.Info.AppendChild(elem);
+            prop.Properties.AppendChild(elem);
 
-            newControl.Info = prop;
+            newControl.Properties = prop;
            
             fullContentLetterControl1.FullContent = letterView;
 

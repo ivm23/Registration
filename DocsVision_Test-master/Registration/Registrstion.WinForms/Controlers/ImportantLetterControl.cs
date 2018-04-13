@@ -12,21 +12,23 @@ using System.Xml;
 
 namespace Registrstion.WinForms.Controlers
 {
-    public partial class ImportantLetterControl : UserControl, ILetterPropertiesUIPlugin
+    public partial class ImportantLetterControl : UserControl//, ILetterPropertiesUIPlugin
     {
+        public event EventHandler AddReceiver;
         public ImportantLetterControl()
         {
             InitializeComponent();
+
         }
 
-        FolderProperties _info;
+        LetterProperties _info;
 
         public void OnLoad()
         {
 
         }
 
-        public FolderProperties Info {
+        public LetterProperties Properties {
             set
             {
                 _info = value;
@@ -35,15 +37,22 @@ namespace Registrstion.WinForms.Controlers
             {
                 if (null == _info)
                 {
-                    _info = new FolderProperties();
+                    _info = new LetterProperties();
                 }
 
-                XmlElement elem = _info.Info.CreateElement(comboImportanceDegree.Name);
+            /*    XmlElement elem = _info.Properties.CreateElement(comboImportanceDegree.Name);
                 elem.InnerText = comboImportanceDegree.Text;
-                _info.Info.AppendChild(elem);
-
+                _info.Properties.AppendChild(elem);
+                */
                 return _info;
             }
+        }
+
+        private void sendLetterB_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("fdsd");
+
+            AddReceiver(sender, e);
         }
     }
 }

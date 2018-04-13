@@ -56,7 +56,7 @@ namespace Registrstion.WinForms.Forms
             InitializeBaseSizeHeight();
         }
 
-        public string TextLetter
+    /*    public string TextLetter
         {
             set { fullContentLetterControl1.TextLetter = value; }
             get { return fullContentLetterControl1.TextLetter; }
@@ -74,7 +74,7 @@ namespace Registrstion.WinForms.Forms
             get { return fullContentLetterControl1.AllWorkers; }
         }
 
-
+        */
         public List<string> NamesAndLoginsReceivers
         {
             set
@@ -88,14 +88,14 @@ namespace Registrstion.WinForms.Forms
             get { return nameAndLoginReceivers; }
         }
 
-        private void AddReceiversB_Click(object sender, EventArgs e)
+    /*    private void AddReceiversB_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(fullContentLetterControl1.NameReceiver)) MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.NonexistWorker);
             else
             {
                 nameAndLoginReceivers.Add(fullContentLetterControl1.NameReceiver);
             }
-        }
+        }*/
 
         private void CreateLetter(string letterName, Guid workerId, IEnumerable<string> workerNameAndLogin, string letterText, string extendedData, int type)
         {
@@ -124,15 +124,19 @@ namespace Registrstion.WinForms.Forms
             LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
             ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
-            global::Registration.Model.FolderProperties letterProp = clientUIPlugin.Info;
+            global::Registration.Model.LetterProperties letterProp = clientUIPlugin.Properties;
+         
 
-            if (SendLetter(NameLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, NamesAndLoginsReceivers, TextLetter, letterProp.ToString(), selectedLetterType.Id)) 
+         /*   if (SendLetter(NameLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, NamesAndLoginsReceivers, TextLetter, letterProp.ToString(), selectedLetterType.Id)) 
             {
                 MessageService.InfoMessage(Registrstion.WinForms.Message.MessageResource.SentLetter);
 
                 Close();
             }
+            */
         }
+
+
 
         private IEnumerable<string> GetAllWorkers()
         {
@@ -163,35 +167,24 @@ namespace Registrstion.WinForms.Forms
         {
             InitializeClientService();
             InitializeMessageService();
-            InitializeBaseControls();
-
-            fullContentLetterControl1.ReadOnly = false;
-            fullContentLetterControl1.NameSender = GetWorkerName(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-
-            AllWorkers = GetAllWorkers();
 
             var selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
-            Control newControl = (Control)((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
-            int minXLocation = 1000;
-            foreach (Control control in BaseControls)
-            {
-                minXLocation = Math.Min(control.Location.X, minXLocation);
-            }
-            newControl.Location = new Point(minXLocation, 0);
+            
+            ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+            newControl.AddReceiver += new EventHandler(Click);
+            newControl.ReadOnly = false;
 
-            int width = Math.Max(BaseSizeHeight.X, newControl.Width);
-           
-            this.Controls.Clear();
-           
-            this.Size = new Size(width, BaseSizeHeight.Y + newControl.Size.Height);
-            this.Controls.Add(newControl);
+            this.Size = new Size(((Control)newControl).Size.Width, ((Control)newControl).Height);
+            this.Controls.Add(((Control)newControl));
+        }
 
-            foreach (Control control in BaseControls)
-             {
-                control.Location = new System.Drawing.Point(control.Location.X, control.Location.Y + newControl.Size.Height);
-                this.Controls.Add(control);
-            }
+        private void Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(((ILetterPropertiesUIPlugin)sender).Properties.ToString());
+
+          //  ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+            this.Close();
         }
 
         private void MakeLetterForm_Load(object sender, EventArgs e)

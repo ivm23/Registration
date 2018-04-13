@@ -274,7 +274,7 @@ namespace Registrstion.WinForms.Forms
         {
             LetterType letterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
 
-            if (null != _comboLettersTypes[toolStripComboBox1.SelectedIndex])
+            if (toolStripComboBox1.SelectedIndex >= 0 && null != _comboLettersTypes[toolStripComboBox1.SelectedIndex])
             {
                 letterType.Id = _comboLettersTypes[toolStripComboBox1.SelectedIndex].Id;
                 letterType.Name = _comboLettersTypes[toolStripComboBox1.SelectedIndex].Name;

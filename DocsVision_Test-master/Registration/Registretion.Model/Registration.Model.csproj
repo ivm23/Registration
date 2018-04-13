@@ -47,6 +47,7 @@
     <Compile Include="Folder.cs" />
     <Compile Include="FolderProperties.cs" />
     <Compile Include="Letter.cs" />
+    <Compile Include="LetterProperties.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
