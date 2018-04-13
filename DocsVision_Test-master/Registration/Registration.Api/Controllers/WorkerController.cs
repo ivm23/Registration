@@ -13,7 +13,7 @@ namespace Registration.Api.Controllers
 {
     public class WorkerController : ApiController
     {
-        private static ServiceContainer _serviceFolderContainer = (ServiceContainer)HttpContext.Current.Application["serviceContainer"];
+        private static ServiceContainer _serviceWorkerContainer = (ServiceContainer)HttpContext.Current.Application["serviceContainer"];
 
         private IDictionary<string, IWorkerService> _existWorkerService = new Dictionary<string, IWorkerService>();
 
@@ -26,7 +26,8 @@ namespace Registration.Api.Controllers
             IWorkerService workerService;
             if (!_existWorkerService.TryGetValue(databaseName, out workerService))
             {
-                DatabaseService _databaseService = ((IDatabasesService)_serviceFolderContainer.GetService(typeof(IDatabasesService))).GetDatabasesService()[databaseName];
+                var a = ((IDatabasesService)_serviceWorkerContainer.GetService(typeof(IDatabasesService))).GetDatabasesService();
+                DatabaseService _databaseService = ((IDatabasesService)_serviceWorkerContainer.GetService(typeof(IDatabasesService))).GetDatabasesService()[databaseName];
                 workerService = new WorkerService(_databaseService);
                 _existWorkerService.Add(databaseName, workerService);
             }

@@ -5,9 +5,15 @@ using System.Web;
 
 namespace Registration.Api
 {
-    public abstract class ConfigurationService
+    public class ConnectionInfo
     {
-        public abstract IList<string> GetConnectionStringKeys();
-        public abstract string GetConnectionString(string connectionStringKey);
+        public string Name { get; set; }
+        public string ConnectionString{ get; set; }
     }
+
+    public interface ConfigurationService
+    {
+        IEnumerable<ConnectionInfo> GetConnections();
+    }
+
 }

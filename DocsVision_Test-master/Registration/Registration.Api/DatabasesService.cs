@@ -14,21 +14,22 @@ namespace Registration.Api
 
         private string GetConnectionString(string databaseName) => $"Data Source = 109PC0047; Initial Catalog = {databaseName}; Integrated Security = True";
 
-        public IDictionary<string, DatabaseService> GetDatabasesService()
+        public void InitializeDatabasesService()
         {
             ConfigurationService configurationService = ConfigurationServiceFactory.InitializeConfigurationService();
 
-            IList<string> connectionStringKeys = configurationService.GetConnectionStringKeys();
-            
-            foreach (string connectionStringKey in connectionStringKeys)
+            foreach (ConnectionInfo connectionInfo in configurationService.GetConnections())
             {
-                if (connectionStringKey.Contains(ConnectionStringKey))
+                if (!_databaseServices.Keys.Contains(connectionInfo.ConnectionString))
                 {
-                    string connectionString = configurationService.GetConnectionString(connectionStringKey);
-
-                    _databaseServices.Add(connectionString, DatabaseFactory.DatabaseFactory.InitializeDatabase(GetConnectionString(connectionString)));
+                    _databaseServices.Add(connectionInfo.ConnectionString, DatabaseFactory.DatabaseFactory.InitializeDatabase(GetConnectionString(connectionInfo.ConnectionString)));
                 }
             }
+
+        }
+
+        public IDictionary<string, DatabaseService> GetDatabasesService()
+        {
             return _databaseServices;
         }
     }

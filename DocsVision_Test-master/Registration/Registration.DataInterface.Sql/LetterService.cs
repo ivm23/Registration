@@ -16,6 +16,7 @@ namespace Registration.DataInterface.Sql
         const string SpDeleteLetter = "sp_DeleteLetter";
         const string SpUpdateLetterIsRead = "sp_UpdateIsRead";
         const string SpGetAllLetterTypes = "sp_GetAllLetterTypes";
+        const string SpGetLetterType = "sp_GetLetterType";
 
         const string IdLetterColumn = "@idLetter";
         const string IdWorkerColumn = "@idWorker";
@@ -26,6 +27,8 @@ namespace Registration.DataInterface.Sql
         const string IdReceiversColumn = "@idReceivers";
         const string IdFolderColumn = "@idFolder";
         const string IsReadColumn = "@isRead";
+
+        const string IdColumn = "@id";
 
         const string ExtendedDataColumn = "@extendedData";
         const string LetterTypeIdColumn = "@type";
@@ -220,6 +223,33 @@ namespace Registration.DataInterface.Sql
                 }
             }
         }
+        public LetterType GetLetterType(int letterId)
+        {
+            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            {
+                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetLetterType, connection))
+                {
+                    DatabaseService.AddParameterWithValue(IdColumn, letterId, command);
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new LetterType()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal(Id)),
+                                Name = reader.GetString(reader.GetOrdinal(Name)),
+                                TypeClientUI = reader.GetString(reader.GetOrdinal(TypeClientUI))
+                            };
+                        }
+                        else
+                        {
+                            throw new Exception("Such type isn't exist!");
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 }

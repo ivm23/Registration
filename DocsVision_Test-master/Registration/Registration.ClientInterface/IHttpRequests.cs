@@ -36,5 +36,7 @@ namespace Registration.ClientInterface
         FolderType GetFolderType(int folderTypeId, string connectionString);
 
         IEnumerable<LetterType> GetAllLetterTypes(string connectionString);
+
+        LetterType GetLetterType(int letterTypeId, string connectionString);
     }
 }

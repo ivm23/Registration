@@ -62,10 +62,7 @@ namespace Registrstion.WinForms
             _serviceContainer.AddService(typeof(IClientRequests), clientRequests);
             _serviceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
             _serviceContainer.AddService(typeof(Message.IMessageService), new Message.MessageService());
-            _serviceContainer.AddService(typeof(Worker), new Worker());
-            _serviceContainer.AddService(typeof(Folder), new Folder());
-            _serviceContainer.AddService(typeof(LetterView), new LetterView());
-            _serviceContainer.AddService(typeof(LetterType), new LetterType());
+            _serviceContainer.AddService(typeof(ApplicationState), new ApplicationState());
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

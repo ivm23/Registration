@@ -12,5 +12,6 @@ namespace Registration.DataInterface
         void ChangeLetterIsRead(Guid letterId, Guid workerId);
 
         IEnumerable<LetterType> GetAllLetterTypes();
+        LetterType GetLetterType(int letterTypeId);
     }
 }

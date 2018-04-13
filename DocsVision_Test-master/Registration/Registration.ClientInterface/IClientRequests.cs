@@ -32,6 +32,7 @@ namespace Registration.ClientInterface
         IEnumerable<FolderType> GetAllFolderTypes();
 
         FolderType GetFolderType(int folderTypeId);
+        LetterType GetLetterType(int letterTypeId);
 
         IEnumerable<string> GetDatabasesNames();
 

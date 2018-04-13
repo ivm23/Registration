@@ -9,6 +9,7 @@ namespace Registration.Api
 {
     interface IDatabasesService
     {
+        void InitializeDatabasesService();
         IDictionary<string, DatabaseService> GetDatabasesService();
     }
 }

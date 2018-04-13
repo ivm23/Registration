@@ -104,11 +104,9 @@ namespace Registrstion.WinForms
             IClientRequests clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
             clientRequests.DatabaseName = databaseNamesCB.SelectedItem.ToString();
 
-            Worker worker = (Worker)(ServiceProvider.GetService(typeof(Worker)));
+            Guid workerId = ((ApplicationState)(ServiceProvider.GetService(typeof(ApplicationState)))).Worker.Id = SingIn(loginTB.Text, passwordTB.Text);
 
-            worker.Id = SingIn(loginTB.Text, passwordTB.Text);
-
-            if (!worker.Id.Equals(Guid.Empty))
+            if (!workerId.Equals(Guid.Empty))
             {
                 Hide();
             }
@@ -126,7 +124,7 @@ namespace Registrstion.WinForms
 
         private void singUp_Closing(object sender, FormClosingEventArgs e)
         {
-            Program.CloseReason = e.CloseReason;
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CloseReason = e.CloseReason;
         }
     }
 

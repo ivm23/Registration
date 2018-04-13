@@ -21,8 +21,11 @@ namespace Reistration.Api
         {
 
             ServiceContainer = new ServiceContainer();
-           
-            ServiceContainer.AddService(typeof(Registration.Api.IDatabasesService), new Registration.Api.DatabasesService());
+
+            Registration.Api.IDatabasesService databasesService = new Registration.Api.DatabasesService();
+            databasesService.InitializeDatabasesService();
+
+            ServiceContainer.AddService(typeof(Registration.Api.IDatabasesService), databasesService);
 
             Application.Add(ServiceContainerMark, ServiceContainer);
         }

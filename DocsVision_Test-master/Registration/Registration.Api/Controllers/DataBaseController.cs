@@ -19,14 +19,12 @@ namespace Registration.Api.Controllers
         {
             ConfigurationService configurationService = ConfigurationServiceFactory.InitializeConfigurationService();
 
-            IList<string> connectionStringKeys = configurationService.GetConnectionStringKeys();
-
             var allConnectionsStrings = new List<string>();
-            foreach (string key in connectionStringKeys)
+            foreach (ConnectionInfo connectionInfo in configurationService.GetConnections())
             {
-                if (key.Contains("connectionString"))
+                if (connectionInfo.Name.Contains("connectionString"))
                 {
-                    allConnectionsStrings.Add(configurationService.GetConnectionString(key));
+                    allConnectionsStrings.Add(connectionInfo.ConnectionString);
                 }
             }
             return allConnectionsStrings;

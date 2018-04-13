@@ -21,7 +21,8 @@ namespace Registration.ClientInterface
 
         public ClientRequests()
         {
-            _httpRequests = new HttpRequests("http://localhost:57893/api/");
+            _httpRequests = new
+                HttpRequests("http://localhost:57893/api/");
         }
 
         public string SelectedDatabase
@@ -182,6 +183,10 @@ namespace Registration.ClientInterface
         public FolderType GetFolderType(int folderTypeId)
         {
             return HttpRequests.GetFolderType(folderTypeId, _connectionString);
+        }
+        public LetterType GetLetterType(int letterTypeId)
+        {
+            return HttpRequests.GetLetterType(letterTypeId, _connectionString);
         }
 
         public IEnumerable<LetterType> GetAllLetterTypes()

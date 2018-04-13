@@ -151,7 +151,7 @@ namespace Registrstion.WinForms.Forms
                 }
             }
 
-            ClientRequests.CreateFolder(((Folder)ServiceProvider.GetService(typeof(Folder))).Id, FolderName, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, SelectedFolderType.Id, data.ToString());
+            ClientRequests.CreateFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id, FolderName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, SelectedFolderType.Id, data.ToString());
         }
 
         void FolderTypeIsChange(object sender, EventArgs e)

@@ -19,21 +19,21 @@ namespace Registrstion.WinForms.Controlers
             InitializeComponent();
         }
 
-        FolderProperties info;
+        FolderProperties _info;
 
 
         public FolderProperties Info
         {
             set
             {
-                info = value;
+                _info = value;
             }
             get
             {
-                if (info == null)
-                    info = new global::Registration.Model.FolderProperties();
+                if (_info == null)
+                    _info = new global::Registration.Model.FolderProperties();
 
-                return info;
+                return _info;
             }
         }
 

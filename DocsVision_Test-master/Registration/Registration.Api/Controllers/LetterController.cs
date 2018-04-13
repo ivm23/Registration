@@ -70,5 +70,12 @@ namespace Registration.Api.Controllers
         {
             return getLetterService(databaseName).GetAllLetterTypes();
         }
+
+        [HttpGet]
+        [Route("api/{databaseName}/letter/{letterTypeId}/type")]
+        public LetterType GetLetterType(int letterTypeId, string databaseName)
+        {
+            return getLetterService(databaseName).GetLetterType(letterTypeId);
+        }
     }
 }

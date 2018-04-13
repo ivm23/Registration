@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationState.cs" />
     <Compile Include="Controlers\ButtonCreateCancelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

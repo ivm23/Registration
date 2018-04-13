@@ -6,6 +6,7 @@ using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
 using Registration.Model;
+using System.Drawing;
 
 namespace Registrstion.WinForms.Forms
 {
@@ -15,6 +16,9 @@ namespace Registrstion.WinForms.Forms
         private Message.IMessageService _messageService;
         private List<string> nameAndLoginReceivers;
         private readonly IServiceProvider _serviceProvider;
+
+        private List<Control> _baseControls;
+        private Point _baseSizeHeight;
 
         public MakeLetterForm(IServiceProvider provider)
         {
@@ -28,10 +32,27 @@ namespace Registrstion.WinForms.Forms
         {
             get { return _clientRequests; }
         }
+        private Point BaseSizeHeight
+        {
+            get { return _baseSizeHeight; }
+        }
+
 
         private Message.IMessageService MessageService
         {
             get { return _messageService; }
+        }
+        private List<Control> BaseControls
+        {
+            get { return _baseControls; }
+        }
+        private void InitializeBaseControls()
+        {
+            _baseControls = new List<Control>();
+            foreach (Control control in this.Controls)
+            {
+                BaseControls.Add(control);
+            }
         }
 
         public string TextLetter
@@ -51,14 +72,14 @@ namespace Registrstion.WinForms.Forms
             set { fullContentLetterControl1.AllWorkers = value; }
             get { return fullContentLetterControl1.AllWorkers; }
         }
-        
+
 
         public List<string> NamesAndLoginsReceivers
         {
             set
             {
                 nameAndLoginReceivers.Clear();
-                foreach(string nameAndLogins in value)
+                foreach (string nameAndLogins in value)
                 {
                     nameAndLoginReceivers.Add(nameAndLogins);
                 }
@@ -77,7 +98,7 @@ namespace Registrstion.WinForms.Forms
 
         private void CreateLetter(string letterName, Guid workerId, IEnumerable<string> workerNameAndLogin, string letterText)
         {
-            ClientRequests.CreateLetter(letterName, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, workerNameAndLogin, letterText);
+            ClientRequests.CreateLetter(letterName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, workerNameAndLogin, letterText);
         }
 
         private bool SendLetter(string letterName, Guid workerId, IEnumerable<string> workerNameAndLogin, string letterText)
@@ -93,13 +114,13 @@ namespace Registrstion.WinForms.Forms
                 return false;
             }
 
-            CreateLetter(letterName, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, workerNameAndLogin, letterText);
+            CreateLetter(letterName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, workerNameAndLogin, letterText);
             return true;
         }
 
         private void SendLetterB_Click(object sender, EventArgs e)
-        {   
-            if (SendLetter(NameLetter, ((Worker)ServiceProvider.GetService(typeof(Worker))).Id, NamesAndLoginsReceivers, TextLetter))
+        {
+            if (SendLetter(NameLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, NamesAndLoginsReceivers, TextLetter))
             {
                 MessageService.InfoMessage(Registrstion.WinForms.Message.MessageResource.SentLetter);
 
@@ -133,12 +154,47 @@ namespace Registrstion.WinForms.Forms
             InitializeClientService();
             InitializeMessageService();
             fullContentLetterControl1.ReadOnly = false;
-            fullContentLetterControl1.NameSender = GetWorkerName(((Worker)ServiceProvider.GetService(typeof(Worker))).Id);
+            fullContentLetterControl1.NameSender = GetWorkerName(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
 
             AllWorkers = GetAllWorkers();
 
-            var selectedLetterType = (LetterType)ServiceProvider.GetService(typeof(LetterType));
-            ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+            var selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
+            Control newControl = (Control)((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+
+            int locationNewControlY = 0;
+
+            foreach (Control control in BaseControls)
+            {
+                locationNewControlY = Math.Max(control.Location.Y + control.Size.Height, locationNewControlY);
+            }
+
+            newControl.Location = new Point(0, locationNewControlY);
+
+            //_newButtonsControl.Location = new Point(0, locationNewControlY + newControl.Size.Height);
+
+            //int width = Math.Max(Math.Max(BaseSizeHeight.X, newControl.Width), _newButtonsControl.Size.Width);
+
+            //this.Size = new Size(width, BaseSizeHeight.Y + newControl.Size.Height + _newButtonsControl.Size.Height);
+
+            this.Controls.Clear();
+            this.Controls.Add(newControl);
+           // this.Controls.Add(_newButtonsControl);
+
+            foreach (Control control in BaseControls)
+            {
+                this.Controls.Add(control);
+            }
+
+
+            //newControl.Location = new System.Drawing.Point(0, 0); 
+
+            /* foreach (Control control in BaseControls)
+             {
+                 control.Location = new System.Drawing.Point(0, control.Location.Y + newControl.Size.Height);
+             }*/
+
+            Controls.Clear();
+            this.Controls.Add(newControl);
 
         }
 
@@ -149,7 +205,7 @@ namespace Registrstion.WinForms.Forms
                 InitializeForm();
             }
             catch (Exception ex)
-            { 
+            {
                 NLogger.Logger.Error(ex.ToString());
             }
         }

@@ -40,12 +40,12 @@ namespace Registrstion.WinForms.Forms
         private void RenameFolderForm_Load(object sender, EventArgs e)
         {
             InitializeClientService();
-            newNameTB.Text = ((Folder)ServiceProvider.GetService(typeof(Folder))).Name; 
+            newNameTB.Text = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Name; 
         }
 
         private void saveB_Click(object sender, EventArgs e)
         {
-            Folder folder = (Folder)ServiceProvider.GetService(typeof(Folder));
+            Folder folder = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder;
             ClientRequests.UpdateFolder(folder.Id, newNameTB.Text);
             Close();
         }

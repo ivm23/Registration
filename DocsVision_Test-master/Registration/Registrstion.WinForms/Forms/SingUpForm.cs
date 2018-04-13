@@ -145,7 +145,7 @@ namespace Registrstion.WinForms.Forms
 
             if (Guid.Empty != workerId)
             {
-                 ((Worker)ServiceProvider.GetService(typeof(Worker))).Id = workerId;
+                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = workerId;
             }
         }
 

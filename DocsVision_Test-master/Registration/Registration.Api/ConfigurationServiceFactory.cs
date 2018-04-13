@@ -10,23 +10,20 @@ namespace Registration.Api
     public sealed class ConfigurationServiceFactory
     {
 
-        public static ConfigurationServiceFactorySectionHandle sectionHandler = (ConfigurationServiceFactorySectionHandle)ConfigurationManager.GetSection("ConfigurationService");
+        private static ConfigurationServiceFactorySectionHandle sectionHandler = (ConfigurationServiceFactorySectionHandle)ConfigurationManager.GetSection("ConfigurationService");
+
         private ConfigurationServiceFactory() { }
 
         public static ConfigurationService InitializeConfigurationService()
         {
-            if (sectionHandler.Name.Length == 0)
-            {
+            if (sectionHandler != null)
+
+            if (String.IsNullOrEmpty(sectionHandler.Name))
                 throw new Exception("Configuration name not defined in ConfigurationService section of web.config.");
-            }
+
             try
-            {
-                Type configurationService = Type.GetType(sectionHandler.Name);
-                ConstructorInfo constructor = configurationService.GetConstructor(new Type[] { });
-
-                ConfigurationService createdObject = (ConfigurationService)constructor.Invoke(null);
-
-                return createdObject;
+            {            
+                return (ConfigurationService)Activator.CreateInstance(Type.GetType(sectionHandler.Name));
             }
             catch (Exception excep)
             {

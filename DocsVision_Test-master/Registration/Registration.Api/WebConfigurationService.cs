@@ -8,13 +8,18 @@ namespace Registration.Api
 {
     public class WebConfigurationService : ConfigurationService
     {
-        override public IList<string> GetConnectionStringKeys()
+        public IEnumerable<ConnectionInfo> GetConnections()
         {
-            return ConfigurationManager.AppSettings.AllKeys; 
-        }
-        override public string GetConnectionString(string connectionStringKey)
-        {
-            return ConfigurationManager.AppSettings[connectionStringKey];
+            var connectionsInfo = new List<ConnectionInfo>();
+            foreach (string key in ConfigurationManager.AppSettings.AllKeys)
+            {
+                connectionsInfo.Add(new ConnectionInfo()
+                {
+                    Name = key,
+                    ConnectionString = ConfigurationManager.AppSettings[key]
+                });
+            }
+            return connectionsInfo;
         }
     }
 }

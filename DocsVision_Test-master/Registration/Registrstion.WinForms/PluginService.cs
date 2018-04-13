@@ -55,8 +55,8 @@ namespace Registrstion.WinForms
             {
                 IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
 
-                string typeClientFolderPropertiesUI = clientRequests.GetFolderType(selectedLetterType.Id).TypeClientUI;
-                clientUIPlugin = CreatePlugin<ILetterPropertiesUIPlugin>(typeClientFolderPropertiesUI);
+                string typeClientLetterPropertiesUI = clientRequests.GetLetterType(selectedLetterType.Id).TypeClientUI;
+                clientUIPlugin = CreatePlugin<ILetterPropertiesUIPlugin>(typeClientLetterPropertiesUI);
 
                 _existClientLetterPropertiesPlugin.Add(selectedLetterType.Id, clientUIPlugin);
             }
@@ -96,7 +96,8 @@ namespace Registrstion.WinForms
 
         private T CreatePlugin<T>(string typeName)
         {
-            return (T)Activator.CreateInstance(Type.GetType(typeName));
+            var obj = Type.GetType(typeName);
+            return (T)Activator.CreateInstance(obj);
         }
     }
 }
