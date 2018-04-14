@@ -8,109 +8,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Registration.Model;
+using System.Xml.Serialization;
+using System.Xml;
+using System.IO;
 
 namespace Registrstion.WinForms.Controlers
 {
-    internal partial class FullContentLetterControl : UserControl//, ILetterPropertiesUIPlugin
+    internal partial class FullContentLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
         public event EventHandler AddReceiver;
+
         public FullContentLetterControl()
         {
             InitializeComponent();
         }
 
-        public void OnLoad()
-        {
+        public void OnLoad() { }
 
+        public LetterProperties GetLetterProperties()
+        {
+            return new LetterProperties();
         }
 
-        public LetterProperties Properties
+        public void SetLetterProperties(LetterProperties letterProperties) { }
+
+        public LetterView GetStandartLetter()
         {
-            set;
-            get;
+            var letterView = new LetterView
+            {
+                Name = nameLetterTB.Text,
+                SenderName = nameSenderTB.Text,
+                Text = textLetterTB.Text,
+                Date = Convert.ToDateTime(dateLetterTB.Text)
+            };
+            letterView.ReceiversName.AddRange(workersEditorControl1.GetWorkers());
+            return letterView;
         }
 
-        public string NameLetter
+        public void SetStandartLetter(LetterView letterView)
         {
-            set
-            {
-                nameLetterTB.Text = value;
-            }
-            get
-            {
-                return nameLetterTB.Text;
-            }
-        }
-        public string NameSender
-        {
-            set
-            {
-                nameSenderTB.Text = value;
-            }
-            get
-            {
-                return nameSenderTB.Text;
-            }
-        }
-        public string TextLetter
-        {
-            set
-            {
-                textLetterTB.Text = value;
-            }
-            get
-            {
-                return textLetterTB.Text;
-            }
-        }
-        public string NameReceiver
-        {
-            get
-            {
-                return (nameReceiversCB.SelectedItem != null ? nameReceiversCB.SelectedItem.ToString() : string.Empty);
-            }
-        }
-
-        public LetterView FullContent
-        {
-            set
-            {
-                nameLetterTB.Text = value.Name;
-                nameSenderTB.Text = value.SenderName;
-                StringBuilder names = new StringBuilder();
-                foreach (string name in value.ReceiversName)
-                {
-                    names.Append(name);
-                    names.Append("; ");
-                }
-                if (nameReceiversTB.Visible) nameReceiversTB.Text = names.ToString();
-                if (nameReceiversCB.Visible) nameReceiversCB.Text = names.ToString();
-
-                textLetterTB.Text = value.Text;
-                dateLetterTB.Text = Convert.ToString(value.Date);
-                Refresh();
-            }
-            get
-            {
-                LetterView letterView = new LetterView()
-                {
-                    Name = nameLetterTB.Text,
-                    SenderName = nameSenderTB.Text,
-                    Text = textLetterTB.Text,
-                    Date = Convert.ToDateTime(dateLetterTB.Text)
-                };
-                if (nameReceiversCB.Visible)
-                {
-                    foreach (string nameAndLogin in nameReceiversCB.Items)
-                        letterView.ReceiversName.Add(nameAndLogin);
-                }
-                else
-                {
-                    letterView.ReceiversName.AddRange(nameReceiversTB.Text.Split(';'));
-                }
-
-                return letterView;
-            }
+            nameLetterTB.Text = letterView.Name;
+            nameSenderTB.Text = letterView.SenderName;
+            dateLetterTB.Text = letterView.Date.ToString();
+            workersEditorControl1.SetWorkers(letterView.ReceiversName);
         }
 
         public bool ReadOnly
@@ -122,40 +62,15 @@ namespace Registrstion.WinForms.Controlers
                 dateLetterTB.Visible = value;
                 labelDate.Visible = value;
                 nameReceiversCB.Visible = !value;
-                nameReceiversTB.Visible = value;
+                workersEditorControl1.Visible = value;              
                 nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
             }
         }
 
-        public IEnumerable<string> AllWorkers
+        private void addReceiversB_Click(object sender, EventArgs e)
         {
-            set
-            {
-                foreach (string nameAmdLogin in value)
-                {
-                    nameReceiversCB.Items.Add(nameAmdLogin);
-                }
 
-                var values = new AutoCompleteStringCollection();
-                values.AddRange(value.ToArray<string>());
-                nameReceiversCB.AutoCompleteCustomSource = values;
-                nameReceiversCB.AutoCompleteMode = AutoCompleteMode.None;
-                nameReceiversCB.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            }
-            get
-            {
-                List<string> allWorkersNameAndLogin = new List<string>();
-                foreach (string nameAndLogin in nameReceiversCB.Items)
-                {
-                    allWorkersNameAndLogin.Add(nameAndLogin);
-                }
-                return allWorkersNameAndLogin;
-            }
-        }
-
-        private void sendLetterB_Click(object sender, EventArgs e)
-        {
-            AddReceiver(sender, e);
         }
     }
 }
+

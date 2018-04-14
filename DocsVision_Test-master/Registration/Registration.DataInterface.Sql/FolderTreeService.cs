@@ -172,23 +172,27 @@ namespace Registration.DataInterface
             {
                 using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetFolders, connection))
                 {
-
                     DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
                     using (IDataReader reader = command.ExecuteReader())
                     {
                         List<Folder> allFolders = new List<Folder>();
                         while (reader.Read())
                         {
-                            allFolders.Add(
-                                new Folder()
-                                {
-                                    Id = reader.GetGuid(reader.GetOrdinal(Id)),
-                                    Name = reader.GetString(reader.GetOrdinal(Name)),
-                                    Type = reader.GetInt32(reader.GetOrdinal(FolderType)),
-                                    ParentId = reader.GetGuid(reader.GetOrdinal(IdParent)),
-                                    OwnerId = reader.GetGuid(reader.GetOrdinal(IdOwner)),
-                                    Data = reader.GetString(reader.GetOrdinal(Data))
-                                });
+                                allFolders.Add(
+                               new Folder()
+                               {
+                                   Id = reader.GetGuid(reader.GetOrdinal(Id)),
+                                   Name = reader.GetString(reader.GetOrdinal(Name)),
+                                   Type = reader.GetInt32(reader.GetOrdinal(FolderType)),
+                                   ParentId = reader.GetGuid(reader.GetOrdinal(IdParent)),
+                                   OwnerId = reader.GetGuid(reader.GetOrdinal(IdOwner)),
+                                   Data = reader.GetString(reader.GetOrdinal(Data))
+                               });
+                        }
+
+                        if (allFolders.Count == 0)
+                        {
+                            throw new Exception("Folders are not exist");
                         }
                         return allFolders;
                     }

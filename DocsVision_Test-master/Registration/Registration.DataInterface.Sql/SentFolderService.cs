@@ -9,6 +9,7 @@ using Registration.DatabaseFactory;
 using System.ComponentModel.Design;
 using Registration.DataInterface.Sql;
 
+
 namespace Registration.DataInterface.Sql
 {
     public class SentFolderService : FolderService

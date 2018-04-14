@@ -14,7 +14,9 @@ namespace Registration.DatabaseFactory
         private DatabaseFactory() { }
         public static DatabaseService InitializeDatabase(string connectionString)
         {
-            if (sectionHandler.Name.Length == 0)
+            if (sectionHandler != null) 
+
+            if (string.IsNullOrEmpty(sectionHandler.Name))
             {
                 throw new Exception("Database name not defined in DatabaseFactoryConfiguration section of web.config.");
             }

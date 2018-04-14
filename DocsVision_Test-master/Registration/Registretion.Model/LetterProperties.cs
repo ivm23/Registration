@@ -11,17 +11,11 @@ namespace Registration.Model
 {
     public class LetterProperties
     {
-        public XmlDocument Properties { get; set; } = new XmlDocument();
+        public string Properties { get; set; }
 
         public override string ToString()
         {
-            StringBuilder str = new StringBuilder();
-
-            foreach (XmlElement el in Properties)
-            {
-                str.Append(el.InnerText);
-            }
-            return str.ToString();
+            return Properties.ToString();
         }
     }
 }

@@ -95,11 +95,11 @@
     <Compile Include="Controlers\FullContentLetterControl.Designer.cs">
       <DependentUpon>FullContentLetterControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controlers\ImportanceDegreeControl.cs">
+    <Compile Include="Controlers\ImportanceDegreeEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controlers\ImportanceDegreeControl.Designer.cs">
-      <DependentUpon>ImportanceDegreeControl.cs</DependentUpon>
+    <Compile Include="Controlers\ImportanceDegreeEditorControl.Designer.cs">
+      <DependentUpon>ImportanceDegreeEditorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controlers\ImportantLetterControl.cs">
       <SubType>UserControl</SubType>
@@ -107,6 +107,7 @@
     <Compile Include="Controlers\ImportantLetterControl.Designer.cs">
       <DependentUpon>ImportantLetterControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controlers\ImportantLetterData.cs" />
     <Compile Include="Controlers\InboxFolderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -148,6 +149,12 @@
     </Compile>
     <Compile Include="Controlers\UnreadFolderControl.Designer.cs">
       <DependentUpon>UnreadFolderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\WorkersEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\WorkersEditorControl.Designer.cs">
+      <DependentUpon>WorkersEditorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CreateFolderForm.cs">
       <SubType>Form</SubType>
@@ -200,6 +207,11 @@
     <Compile Include="IFolderPropertiesUIPlugin.cs" />
     <Compile Include="ILetterPropertiesUIPlugin.cs" />
     <Compile Include="IPluginService.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Message\IMessageService.cs" />
     <Compile Include="Message\MessageService.cs" />
     <Compile Include="Message\MessageResource.Designer.cs">
@@ -216,8 +228,8 @@
     <EmbeddedResource Include="Controlers\FullContentLetterControl.resx">
       <DependentUpon>FullContentLetterControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controlers\ImportanceDegreeControl.resx">
-      <DependentUpon>ImportanceDegreeControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controlers\ImportanceDegreeEditorControl.resx">
+      <DependentUpon>ImportanceDegreeEditorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controlers\ImportantLetterControl.resx">
       <DependentUpon>ImportantLetterControl.cs</DependentUpon>
@@ -243,6 +255,9 @@
     <EmbeddedResource Include="Controlers\UnreadFolderControl.resx">
       <DependentUpon>UnreadFolderControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\WorkersEditorControl.resx">
+      <DependentUpon>WorkersEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateFolderForm.resx">
       <DependentUpon>CreateFolderForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -266,6 +281,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuthorizationForm.resx">
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Message\MessageResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>

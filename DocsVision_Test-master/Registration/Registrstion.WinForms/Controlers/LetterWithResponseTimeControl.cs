@@ -12,7 +12,7 @@ using System.Xml;
 
 namespace Registrstion.WinForms.Controlers
 {
-    public partial class LetterWithResponseTimeControl : UserControl, ILetterPropertiesUIPlugin
+    public partial class LetterWithResponseTimeControl : UserControl//, ILetterPropertiesUIPlugin
     {
         public event EventHandler AddReceiver;
         LetterProperties _info;
@@ -48,7 +48,7 @@ namespace Registrstion.WinForms.Controlers
                 //  XmlElement elem = _info.Properties.CreateElement(dateTimePickerResponseRequired.Name);
                 //      elem.InnerText = dateTimePickerResponseRequired.Text;
                 //    _info.Properties.AppendChild(elem);
-                _info.Properties.InnerText = nameReceiversCB.Text;
+                //_info.Properties.InnerText = nameReceiversCB.Text;
                 return _info;
             }
         }
@@ -69,7 +69,7 @@ namespace Registrstion.WinForms.Controlers
                 dateLetterTB.Visible = value;
                 labelDate.Visible = value;
                 nameReceiversCB.Visible = !value;
-                nameReceiversTB.Visible = value;
+                workersControl1.Visible = value;
                 nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
             }
         }

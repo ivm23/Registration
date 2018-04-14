@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWorkerForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.compose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
@@ -43,7 +43,6 @@
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.latterName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.senderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fullContentLetterControl1 = new Registrstion.WinForms.Controlers.FullContentLetterControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.createFolderTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.changeFolderTSMI = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +50,6 @@
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -123,10 +121,6 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel1MinSize = 670;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.fullContentLetterControl1);
             this.splitContainer1.Panel2MinSize = 500;
             this.splitContainer1.Size = new System.Drawing.Size(1208, 523);
             this.splitContainer1.SplitterDistance = 676;
@@ -166,22 +160,22 @@
             this.date,
             this.latterName,
             this.senderName});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.briefContentLetterDGV.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.briefContentLetterDGV.DefaultCellStyle = dataGridViewCellStyle1;
             this.briefContentLetterDGV.Location = new System.Drawing.Point(3, 11);
             this.briefContentLetterDGV.MinimumSize = new System.Drawing.Size(50, 50);
             this.briefContentLetterDGV.MultiSelect = false;
             this.briefContentLetterDGV.Name = "briefContentLetterDGV";
             this.briefContentLetterDGV.ReadOnly = true;
             this.briefContentLetterDGV.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.briefContentLetterDGV.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.briefContentLetterDGV.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.briefContentLetterDGV.RowTemplate.Height = 40;
             this.briefContentLetterDGV.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.briefContentLetterDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -214,20 +208,6 @@
             this.senderName.Name = "senderName";
             this.senderName.ReadOnly = true;
             this.senderName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // fullContentLetterControl1
-            // 
-            this.fullContentLetterControl1.AllWorkers = ((System.Collections.Generic.IEnumerable<string>)(resources.GetObject("fullContentLetterControl1.AllWorkers")));
-            this.fullContentLetterControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fullContentLetterControl1.Location = new System.Drawing.Point(-14, -16);
-            this.fullContentLetterControl1.Name = "fullContentLetterControl1";
-            this.fullContentLetterControl1.NameLetter = "";
-            this.fullContentLetterControl1.NameSender = "";
-            this.fullContentLetterControl1.Size = new System.Drawing.Size(535, 538);
-            this.fullContentLetterControl1.TabIndex = 10;
-            this.fullContentLetterControl1.TextLetter = "";
             // 
             // contextMenuStrip1
             // 
@@ -275,7 +255,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -295,7 +274,6 @@
         private System.Windows.Forms.TreeView foldersTV;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView briefContentLetterDGV;
-        private Controlers.FullContentLetterControl fullContentLetterControl1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.DataGridViewTextBoxColumn date;
         private System.Windows.Forms.DataGridViewTextBoxColumn latterName;

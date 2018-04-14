@@ -31,7 +31,6 @@
             this.labelDate = new System.Windows.Forms.Label();
             this.dateTimePickerResponseRequired = new System.Windows.Forms.DateTimePicker();
             this.addReceiversB = new System.Windows.Forms.Button();
-            this.nameReceiversTB = new System.Windows.Forms.TextBox();
             this.nameReceiversCB = new System.Windows.Forms.ComboBox();
             this.textLetterTB = new System.Windows.Forms.TextBox();
             this.labelMessage = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.nameLetterTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
+            this.workersControl1 = new Registrstion.WinForms.Controlers.WorkersEditorControl();
             this.SuspendLayout();
             // 
             // labelDate
@@ -70,16 +70,6 @@
             this.addReceiversB.Text = "Add";
             this.addReceiversB.UseVisualStyleBackColor = true;
             this.addReceiversB.Click += new System.EventHandler(this.addReceiversB_Click);
-            // 
-            // nameReceiversTB
-            // 
-            this.nameReceiversTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameReceiversTB.Location = new System.Drawing.Point(40, 111);
-            this.nameReceiversTB.Name = "nameReceiversTB";
-            this.nameReceiversTB.ReadOnly = true;
-            this.nameReceiversTB.Size = new System.Drawing.Size(330, 20);
-            this.nameReceiversTB.TabIndex = 24;
             // 
             // nameReceiversCB
             // 
@@ -182,12 +172,19 @@
             this.labelName.TabIndex = 14;
             this.labelName.Text = "&Name";
             // 
+            // workersControl1
+            // 
+            this.workersControl1.Location = new System.Drawing.Point(37, 107);
+            this.workersControl1.Name = "workersControl1";
+            this.workersControl1.Size = new System.Drawing.Size(336, 28);
+            this.workersControl1.TabIndex = 26;
+            // 
             // LetterWithResponseTimeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.workersControl1);
             this.Controls.Add(this.addReceiversB);
-            this.Controls.Add(this.nameReceiversTB);
             this.Controls.Add(this.nameReceiversCB);
             this.Controls.Add(this.textLetterTB);
             this.Controls.Add(this.labelMessage);
@@ -212,7 +209,6 @@
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.DateTimePicker dateTimePickerResponseRequired;
         private System.Windows.Forms.Button addReceiversB;
-        private System.Windows.Forms.TextBox nameReceiversTB;
         private System.Windows.Forms.ComboBox nameReceiversCB;
         private System.Windows.Forms.TextBox textLetterTB;
         private System.Windows.Forms.Label labelMessage;
@@ -223,5 +219,6 @@
         private System.Windows.Forms.TextBox nameLetterTB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelName;
+        private WorkersEditorControl workersControl1;
     }
 }

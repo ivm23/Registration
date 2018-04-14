@@ -1,16 +1,16 @@
 ﻿namespace Registrstion.WinForms.Controlers
 {
-    partial class ImportanceDegreeControl
+    partial class ImportanceDegreeEditorControl
     {
         /// <summary> 
-        /// Required designer variable.
+        /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
-        /// Clean up any resources being used.
+        /// Освободить все используемые ресурсы.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,11 +20,11 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+        #region Код, автоматически созданный конструктором компонентов
 
         /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
+        /// Требуемый метод для поддержки конструктора — не изменяйте 
+        /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent()
         {
@@ -33,24 +33,23 @@
             // 
             // comboImportanceDegree
             // 
+            this.comboImportanceDegree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboImportanceDegree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboImportanceDegree.FormattingEnabled = true;
-            this.comboImportanceDegree.Items.AddRange(new object[] {
-            "Low",
-            "Normal",
-            "High"});
             this.comboImportanceDegree.Location = new System.Drawing.Point(3, 3);
             this.comboImportanceDegree.Name = "comboImportanceDegree";
-            this.comboImportanceDegree.Size = new System.Drawing.Size(139, 21);
+            this.comboImportanceDegree.Size = new System.Drawing.Size(121, 21);
             this.comboImportanceDegree.TabIndex = 0;
             // 
-            // ImportanceDegreeControl
+            // ImportanceDegreeEditorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.comboImportanceDegree);
-            this.Name = "ImportanceDegreeControl";
-            this.Size = new System.Drawing.Size(151, 33);
+            this.Name = "ImportanceDegreeEditorControl";
+            this.Size = new System.Drawing.Size(128, 30);
             this.ResumeLayout(false);
 
         }

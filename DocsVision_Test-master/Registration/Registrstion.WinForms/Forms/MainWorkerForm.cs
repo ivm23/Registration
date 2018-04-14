@@ -62,7 +62,12 @@ namespace Registrstion.WinForms.Forms
             {
                 if (value != null)
                 {
-                    fullContentLetterControl1.FullContent = value;                   
+                    ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(_comboLettersTypes[toolStripComboBox1.SelectedIndex]);
+                    clientUIPlugin.SetStandartLetter(value);
+                    clientUIPlugin.SetLetterProperties(new LetterProperties() { Properties = value.ExtendedData });
+                    clientUIPlugin.ReadOnly = true;
+
+                    splitContainer1.Panel2.Controls.Add((Control)clientUIPlugin);
                 }
             }
         }

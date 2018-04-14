@@ -42,11 +42,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fullContentLetterControl1.Location = new System.Drawing.Point(10, 24);
             this.fullContentLetterControl1.Name = "fullContentLetterControl1";
-            this.fullContentLetterControl1.NameLetter = "";
-            this.fullContentLetterControl1.NameSender = "";
             this.fullContentLetterControl1.Size = new System.Drawing.Size(536, 424);
             this.fullContentLetterControl1.TabIndex = 0;
-            this.fullContentLetterControl1.TextLetter = "";
             this.fullContentLetterControl1.Load += new System.EventHandler(this.fullContentLetterControl1_Load);
             // 
             // menuStrip1

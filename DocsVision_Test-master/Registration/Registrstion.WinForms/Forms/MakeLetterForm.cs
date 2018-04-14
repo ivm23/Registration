@@ -42,10 +42,12 @@ namespace Registrstion.WinForms.Forms
         {
             get { return _messageService; }
         }
+
         private List<Control> BaseControls
         {
             get { return _baseControls; }
         }
+
         private void InitializeBaseControls()
         {
             _baseControls = new List<Control>();
@@ -56,25 +58,6 @@ namespace Registrstion.WinForms.Forms
             InitializeBaseSizeHeight();
         }
 
-    /*    public string TextLetter
-        {
-            set { fullContentLetterControl1.TextLetter = value; }
-            get { return fullContentLetterControl1.TextLetter; }
-        }
-
-        public string NameLetter
-        {
-            set { fullContentLetterControl1.NameLetter = value; }
-            get { return fullContentLetterControl1.NameLetter; }
-        }
-
-        public IEnumerable<string> AllWorkers
-        {
-            set { fullContentLetterControl1.AllWorkers = value; }
-            get { return fullContentLetterControl1.AllWorkers; }
-        }
-
-        */
         public List<string> NamesAndLoginsReceivers
         {
             set
@@ -124,19 +107,15 @@ namespace Registrstion.WinForms.Forms
             LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
             ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
-            global::Registration.Model.LetterProperties letterProp = clientUIPlugin.Properties;
-         
+            global::Registration.Model.LetterProperties letterProp = clientUIPlugin.GetLetterProperties();
+            LetterView letterView = clientUIPlugin.GetStandartLetter();
 
-         /*   if (SendLetter(NameLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, NamesAndLoginsReceivers, TextLetter, letterProp.ToString(), selectedLetterType.Id)) 
+         if (SendLetter(letterView.Name, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, NamesAndLoginsReceivers, letterView.Text, letterProp.ToString(), selectedLetterType.Id)) 
             {
                 MessageService.InfoMessage(Registrstion.WinForms.Message.MessageResource.SentLetter);
-
                 Close();
             }
-            */
         }
-
-
 
         private IEnumerable<string> GetAllWorkers()
         {
@@ -172,20 +151,20 @@ namespace Registrstion.WinForms.Forms
 
             
             ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
-            newControl.AddReceiver += new EventHandler(Click);
+         //   newControl.AddReceiver += new EventHandler(Click);
             newControl.ReadOnly = false;
 
             this.Size = new Size(((Control)newControl).Size.Width, ((Control)newControl).Height);
             this.Controls.Add(((Control)newControl));
         }
 
-        private void Click(object sender, EventArgs e)
+       /* private void Click(object sender, EventArgs e)
         {
-            MessageBox.Show(((ILetterPropertiesUIPlugin)sender).Properties.ToString());
+         //   MessageBox.Show(((ILetterPropertiesUIPlugin)sender).Properties.ToString());
 
           //  ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
             this.Close();
-        }
+        }*/
 
         private void MakeLetterForm_Load(object sender, EventArgs e)
         {

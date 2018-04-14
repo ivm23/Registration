@@ -87,13 +87,13 @@ namespace Registrstion.WinForms.Forms
 
             LetterProperties prop = new LetterProperties() { };
 
-            XmlElement elem = prop.Properties.CreateElement(letterView.ExtendedData);
+/*            XmlElement elem = prop.Properties.CreateElement(letterView.ExtendedData);
             elem.InnerText = letterView.ExtendedData;
             prop.Properties.AppendChild(elem);
 
-            newControl.Properties = prop;
+            newControl.Properties = prop;*/
            
-            fullContentLetterControl1.FullContent = letterView;
+       //     fullContentLetterControl1.FullContent = letterView;
 
             int minXLocation = int.MaxValue;
             int minYLocation = int.MaxValue;

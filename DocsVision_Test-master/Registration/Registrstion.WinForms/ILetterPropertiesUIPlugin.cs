@@ -10,7 +10,13 @@ namespace Registrstion.WinForms
     public interface ILetterPropertiesUIPlugin
     {
         void OnLoad();
-        LetterProperties Properties { set; get; }
+
+        LetterProperties GetLetterProperties();
+
+        void SetLetterProperties(LetterProperties letterProperties);
+
+        LetterView GetStandartLetter();
+        void SetStandartLetter(LetterView letterView);
 
         event EventHandler AddReceiver;
 

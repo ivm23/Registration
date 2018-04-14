@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nameReceiversTB = new System.Windows.Forms.TextBox();
             this.nameReceiversCB = new System.Windows.Forms.ComboBox();
             this.textLetterTB = new System.Windows.Forms.TextBox();
             this.labelMessage = new System.Windows.Forms.Label();
@@ -41,18 +40,9 @@
             this.labelName = new System.Windows.Forms.Label();
             this.labelImportanceDegree = new System.Windows.Forms.Label();
             this.addReceiversB = new System.Windows.Forms.Button();
-            this.importanceDegreeControl1 = new Registrstion.WinForms.Controlers.ImportanceDegreeControl();
+            this.workersEditorControl1 = new Registrstion.WinForms.Controlers.WorkersEditorControl();
+            this.importanceDegreeEditorControl1 = new Registrstion.WinForms.Controlers.ImportanceDegreeEditorControl();
             this.SuspendLayout();
-            // 
-            // nameReceiversTB
-            // 
-            this.nameReceiversTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.nameReceiversTB.Location = new System.Drawing.Point(27, 127);
-            this.nameReceiversTB.Name = "nameReceiversTB";
-            this.nameReceiversTB.ReadOnly = true;
-            this.nameReceiversTB.Size = new System.Drawing.Size(330, 20);
-            this.nameReceiversTB.TabIndex = 35;
             // 
             // nameReceiversCB
             // 
@@ -70,7 +60,7 @@
             // 
             this.textLetterTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textLetterTB.Location = new System.Drawing.Point(27, 212);
+            this.textLetterTB.Location = new System.Drawing.Point(27, 216);
             this.textLetterTB.Multiline = true;
             this.textLetterTB.Name = "textLetterTB";
             this.textLetterTB.ReadOnly = true;
@@ -83,7 +73,7 @@
             this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(24, 196);
+            this.labelMessage.Location = new System.Drawing.Point(24, 200);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(50, 13);
             this.labelMessage.TabIndex = 32;
@@ -169,7 +159,7 @@
             this.labelImportanceDegree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelImportanceDegree.AutoSize = true;
-            this.labelImportanceDegree.Location = new System.Drawing.Point(24, 149);
+            this.labelImportanceDegree.Location = new System.Drawing.Point(25, 153);
             this.labelImportanceDegree.Name = "labelImportanceDegree";
             this.labelImportanceDegree.Size = new System.Drawing.Size(109, 13);
             this.labelImportanceDegree.TabIndex = 23;
@@ -185,21 +175,29 @@
             this.addReceiversB.TabIndex = 36;
             this.addReceiversB.Text = "Add";
             this.addReceiversB.UseVisualStyleBackColor = true;
+            this.addReceiversB.Click += new System.EventHandler(this.addReceiversB_Click);
             // 
-            // importanceDegreeControl1
+            // workersEditorControl1
             // 
-            this.importanceDegreeControl1.Location = new System.Drawing.Point(25, 165);
-            this.importanceDegreeControl1.Name = "importanceDegreeControl1";
-            this.importanceDegreeControl1.Size = new System.Drawing.Size(151, 28);
-            this.importanceDegreeControl1.TabIndex = 38;
+            this.workersEditorControl1.Location = new System.Drawing.Point(23, 126);
+            this.workersEditorControl1.Name = "workersEditorControl1";
+            this.workersEditorControl1.Size = new System.Drawing.Size(338, 28);
+            this.workersEditorControl1.TabIndex = 37;
+            // 
+            // importanceDegreeEditorControl1
+            // 
+            this.importanceDegreeEditorControl1.Location = new System.Drawing.Point(23, 167);
+            this.importanceDegreeEditorControl1.Name = "importanceDegreeEditorControl1";
+            this.importanceDegreeEditorControl1.Size = new System.Drawing.Size(338, 30);
+            this.importanceDegreeEditorControl1.TabIndex = 38;
             // 
             // ImportantLetterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.importanceDegreeControl1);
+            this.Controls.Add(this.importanceDegreeEditorControl1);
+            this.Controls.Add(this.workersEditorControl1);
             this.Controls.Add(this.addReceiversB);
-            this.Controls.Add(this.nameReceiversTB);
             this.Controls.Add(this.nameReceiversCB);
             this.Controls.Add(this.textLetterTB);
             this.Controls.Add(this.labelMessage);
@@ -220,8 +218,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox nameReceiversTB;
         private System.Windows.Forms.ComboBox nameReceiversCB;
         private System.Windows.Forms.TextBox textLetterTB;
         private System.Windows.Forms.Label labelMessage;
@@ -234,6 +230,7 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelImportanceDegree;
         private System.Windows.Forms.Button addReceiversB;
-        private Controlers.ImportanceDegreeControl importanceDegreeControl1;
+        private WorkersEditorControl workersEditorControl1;
+        private ImportanceDegreeEditorControl importanceDegreeEditorControl1;
     }
 }
