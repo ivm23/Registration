@@ -9,57 +9,84 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Registration.Model;
 using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Registrstion.WinForms.Controlers
 {
-    public partial class LetterWithResponseTimeControl : UserControl//, ILetterPropertiesUIPlugin
+    public partial class LetterWithResponseTimeControl : UserControl, ILetterPropertiesUIPlugin
     {
+        //enum ImportanceDegree { Low = 1, Normal = 2, High = 3 };
+
         public event EventHandler AddReceiver;
-        LetterProperties _info;
-        private Message.MessageService _messageService = new Message.MessageService(); 
+
+
         public LetterWithResponseTimeControl()
         {
             InitializeComponent();
         }
 
-        private Message.MessageService MessageService
-        {
-            get { return _messageService; }
-        }
-
         public void OnLoad()
         {
-
         }
 
-        public LetterProperties Properties
+        public LetterProperties GetLetterProperties()
         {
-            set
+            var letterProperties = new LetterProperties();
+
+            var xmlSerializer = new XmlSerializer(typeof(ImportantLetterData));
+
+            var importantLetterData = new ImportantLetterData();
+
+            using (var stringWriter = new StringWriter())
             {
-                _info = value;
-            }
-            get
-            {
-                if (null == _info)
+                using (var writer = XmlWriter.Create(stringWriter))
                 {
-                    _info = new LetterProperties();
+                    xmlSerializer.Serialize(writer, importantLetterData);
+                    letterProperties.Properties = stringWriter.ToString();
+                    return letterProperties;
                 }
-
-                //  XmlElement elem = _info.Properties.CreateElement(dateTimePickerResponseRequired.Name);
-                //      elem.InnerText = dateTimePickerResponseRequired.Text;
-                //    _info.Properties.AppendChild(elem);
-                //_info.Properties.InnerText = nameReceiversCB.Text;
-                return _info;
             }
         }
 
-    /*    public bool ReadOnly
+        public void SetLetterProperties(LetterProperties letterProperties)
         {
-            set
+            var importantLetterData = new ImportantLetterData();
+
+            var xmlSerializer = new XmlSerializer(typeof(ImportantLetterData));
+
+            using (var stringReader = new StringReader(letterProperties.Properties))
             {
-                dateTimePickerResponseRequired.Enabled = value;
+                using (var reader = XmlReader.Create(stringReader))
+                {
+                    importantLetterData = (ImportantLetterData)xmlSerializer.Deserialize(reader);
+                }
             }
-        }*/
+        }
+
+
+        public LetterView GetStandartLetter()
+        {
+            var letterView = new LetterView
+            {
+                Name = nameLetterTB.Text,
+                SenderName = nameSenderTB.Text,
+                Text = textLetterTB.Text,
+                Date = Convert.ToDateTime(dateLetterTB.Text)
+            };
+            letterView.ReceiversName.AddRange(workersEditorControl1.GetWorkers());
+            return letterView;
+        }
+
+        public void SetStandartLetter(LetterView letterView)
+        {
+            nameLetterTB.Text = letterView.Name;
+            nameSenderTB.Text = letterView.SenderName;
+            dateLetterTB.Text = letterView.Date.ToString();
+            workersEditorControl1.SetWorkers(letterView.ReceiversName);
+        }
+
+
         public bool ReadOnly
         {
             set
@@ -69,21 +96,15 @@ namespace Registrstion.WinForms.Controlers
                 dateLetterTB.Visible = value;
                 labelDate.Visible = value;
                 nameReceiversCB.Visible = !value;
-                workersControl1.Visible = value;
+                workersEditorControl1.Visible = value;
+              
                 nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
             }
         }
 
         private void addReceiversB_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(nameReceiversCB.Text))
-            {
-                AddReceiver(this, e);
-            }
-            else
-            {
-                MessageService.ErrorMessage(Message.MessageResource.EmptyListRecipient);
-            }
+
         }
     }
 }

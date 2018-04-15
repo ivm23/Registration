@@ -114,6 +114,7 @@
     <Compile Include="Controlers\InboxFolderControl.Designer.cs">
       <DependentUpon>InboxFolderControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controlers\LetterWithResponseTimeData.cs" />
     <Compile Include="Controlers\LetterWithResponseTimeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

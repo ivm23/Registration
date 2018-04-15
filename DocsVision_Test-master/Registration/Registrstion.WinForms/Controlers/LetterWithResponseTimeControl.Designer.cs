@@ -41,7 +41,7 @@
             this.nameLetterTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
-            this.workersControl1 = new Registrstion.WinForms.Controlers.WorkersEditorControl();
+            this.workersEditorControl1 = new Registrstion.WinForms.Controlers.WorkersEditorControl();
             this.SuspendLayout();
             // 
             // labelDate
@@ -172,18 +172,18 @@
             this.labelName.TabIndex = 14;
             this.labelName.Text = "&Name";
             // 
-            // workersControl1
+            // workersEditorControl1
             // 
-            this.workersControl1.Location = new System.Drawing.Point(37, 107);
-            this.workersControl1.Name = "workersControl1";
-            this.workersControl1.Size = new System.Drawing.Size(336, 28);
-            this.workersControl1.TabIndex = 26;
+            this.workersEditorControl1.Location = new System.Drawing.Point(36, 110);
+            this.workersEditorControl1.Name = "workersEditorControl1";
+            this.workersEditorControl1.Size = new System.Drawing.Size(336, 28);
+            this.workersEditorControl1.TabIndex = 26;
             // 
             // LetterWithResponseTimeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.workersControl1);
+            this.Controls.Add(this.workersEditorControl1);
             this.Controls.Add(this.addReceiversB);
             this.Controls.Add(this.nameReceiversCB);
             this.Controls.Add(this.textLetterTB);
@@ -219,6 +219,6 @@
         private System.Windows.Forms.TextBox nameLetterTB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelName;
-        private WorkersEditorControl workersControl1;
+        private WorkersEditorControl workersEditorControl1;
     }
 }
