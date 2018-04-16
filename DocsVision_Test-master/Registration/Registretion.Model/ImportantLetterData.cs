@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace Registrstion.WinForms.Controlers
+namespace Registretion.Model
 {
     [Serializable]
     public class ImportantLetterData
     {
-        public KeyValuePair<int, string> DegreeImportance { get; set; }
+         public EnumImportanceDegree.ImportanceDegree DegreeImportance;
     }
 }

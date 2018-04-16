@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registretion.Model
 {
     [Serializable]
-    class LetterWithResponseTimeData
+    public class LetterWithReminderData
     {
-
+        public DateTime ReminderData { get; set; }
     }
 }
