@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using Registration.Model;
 using Registration.ClientInterface;
 
-namespace Registrstion.WinForms
+namespace Registration.WinForms
 {
     public class PluginService : IPluginService
     {
         private readonly IDictionary<int, IFolderPropertiesUIPlugin> _existClientPlugin = new Dictionary<int, IFolderPropertiesUIPlugin>();
-        private readonly IDictionary<int, ILetterPropertiesUIPlugin> _existClientLetterPropertiesPlugin = new Dictionary<int, ILetterPropertiesUIPlugin>();
+        //   private readonly IDictionary<int, ILetterPropertiesUIPlugin> _existClientLetterPropertiesPlugin = new Dictionary<int, ILetterPropertiesUIPlugin>();
+        private  KeyValuePair<int, ILetterPropertiesUIPlugin> _currentClientLetterPropertiesPlugin;
         private readonly IDictionary<Guid, object> _globalExistClientPlugin = new Dictionary<Guid, object>();
         private readonly IServiceProvider _serviceProvider;
 
         public PluginService(IServiceProvider provider)
         {
-            if (provider == null)
+            if (null == provider)
                 throw new ArgumentNullException(nameof(provider));
 
             _serviceProvider = provider;
@@ -46,18 +47,27 @@ namespace Registrstion.WinForms
             if (selectedLetterType == null)
                 throw new ArgumentNullException(nameof(selectedLetterType));
 
-            ILetterPropertiesUIPlugin clientUIPlugin;
-
-            if (!_existClientLetterPropertiesPlugin.TryGetValue(selectedLetterType.Id, out clientUIPlugin))
+            ILetterPropertiesUIPlugin clientLetterPropertiesPlugin;
+            if (_currentClientLetterPropertiesPlugin.Key != selectedLetterType.Id)
             {
                 IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
 
                 string typeClientLetterPropertiesUI = clientRequests.GetLetterType(selectedLetterType.Id).TypeClientUI;
-                clientUIPlugin = CreatePlugin<ILetterPropertiesUIPlugin>(typeClientLetterPropertiesUI);
-
-                _existClientLetterPropertiesPlugin.Add(selectedLetterType.Id, clientUIPlugin);
+                _currentClientLetterPropertiesPlugin = new KeyValuePair<int, ILetterPropertiesUIPlugin>(selectedLetterType.Id, CreatePlugin<ILetterPropertiesUIPlugin>(typeClientLetterPropertiesUI));
+                clientLetterPropertiesPlugin = _currentClientLetterPropertiesPlugin.Value;
             }
-            return clientUIPlugin;
+            else
+            {
+                clientLetterPropertiesPlugin = _currentClientLetterPropertiesPlugin.Value;
+                _currentClientLetterPropertiesPlugin = new KeyValuePair<int, ILetterPropertiesUIPlugin>(0, null);
+            }
+            return clientLetterPropertiesPlugin;
+        }
+
+        private T CreatePlugin<T>(string typeName)
+        {
+            var obj = Type.GetType(typeName);
+            return (T)Activator.CreateInstance(obj);
         }
 
         //public IFolderPropertiesUIPlugin GetFolderPropetiesPlugin(FolderType selectedFolderType)
@@ -91,10 +101,6 @@ namespace Registrstion.WinForms
         //    string typeClientFolderPropertiesUI = clientRequests.GetFolderType(folderTypeId).TypeClientUI;
         //}
 
-        private T CreatePlugin<T>(string typeName)
-        {
-            var obj = Type.GetType(typeName);
-            return (T)Activator.CreateInstance(obj);
-        }
+
     }
 }

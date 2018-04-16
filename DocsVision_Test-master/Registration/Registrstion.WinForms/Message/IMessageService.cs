@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Registrstion.WinForms.Message
+namespace Registration.WinForms.Message
 {
     public interface IMessageService
     {

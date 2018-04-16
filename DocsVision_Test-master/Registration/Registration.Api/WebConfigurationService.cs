@@ -19,6 +19,7 @@ namespace Registration.Api
                     ConnectionString = ConfigurationManager.AppSettings[key]
                 });
             }
+
             return connectionsInfo;
         }
     }

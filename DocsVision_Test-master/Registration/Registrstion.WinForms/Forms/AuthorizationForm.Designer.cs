@@ -1,4 +1,4 @@
-﻿namespace Registrstion.WinForms
+﻿namespace Registration.WinForms
 {
     partial class Registration
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Registrstion.WinForms.Message {
+namespace Registration.WinForms.Message {
     using System;
     
     

@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Threading;
 using System.Resources;
 
-namespace Registrstion.WinForms.Message
+namespace Registration.WinForms.Message
 {
     public class MessageService : IMessageService
     {

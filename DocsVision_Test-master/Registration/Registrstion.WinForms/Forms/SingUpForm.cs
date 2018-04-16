@@ -9,7 +9,7 @@ using System.ComponentModel.Design;
 using Registration.Logger;
 using Registration.Model;
 
-namespace Registrstion.WinForms.Forms
+namespace Registration.WinForms.Forms
 {
     internal partial class SingUpForm : Form
     {
@@ -116,21 +116,21 @@ namespace Registrstion.WinForms.Forms
             {
                 if (ClientRequests.WorkerIsExist(workerLogin))
                 {
-                    MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.ExistWorker);
+                    MessageService.ErrorMessage(Message.MessageResource.ExistWorker);
                 }
                 else
                 {
                     workerId = CreateWorker(workerName, workerLogin, workerPassword);
-                    MessageService.InfoMessage(Registrstion.WinForms.Message.MessageResource.SuccessfullRegistration);
+                    MessageService.InfoMessage(Message.MessageResource.SuccessfullRegistration);
                 }
             }
             else
             {
-                if (string.IsNullOrEmpty(workerName)) MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.EmptyName);
+                if (string.IsNullOrEmpty(workerName)) MessageService.ErrorMessage(Message.MessageResource.EmptyName);
                 else
-                    if (string.IsNullOrEmpty(workerLogin)) MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.EmptyLogin);
+                    if (string.IsNullOrEmpty(workerLogin)) MessageService.ErrorMessage(Message.MessageResource.EmptyLogin);
                 else
-                    if (string.IsNullOrEmpty(workerPassword)) MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.EmptyPassword);
+                    if (string.IsNullOrEmpty(workerPassword)) MessageService.ErrorMessage(Message.MessageResource.EmptyPassword);
             }
 
             return workerId;

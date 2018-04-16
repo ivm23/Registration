@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Registration.Model;
 using System.Windows.Forms;
 
-namespace Registrstion.WinForms
+namespace Registration.WinForms
 {
     public class ApplicationState
     {

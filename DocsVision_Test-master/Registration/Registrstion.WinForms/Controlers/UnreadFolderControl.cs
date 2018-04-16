@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Registration.Model;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registration.WinForms.Controlers
 {
     public partial class UnreadFolderControl : UserControl, IFolderPropertiesUIPlugin
     {

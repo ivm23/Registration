@@ -1,4 +1,4 @@
-﻿namespace Registrstion.WinForms.Controlers
+﻿namespace Registration.WinForms.Controlers
 {
     partial class InboxFolderControl
     {

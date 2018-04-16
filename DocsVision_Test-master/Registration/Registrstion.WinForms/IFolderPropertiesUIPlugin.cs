@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Registrstion.WinForms;
+using Registration.WinForms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Registration.Model;
 using System.Windows.Forms;
 
-namespace Registrstion.WinForms
+namespace Registration.WinForms
 {
 
     public interface IFolderPropertiesUIPlugin

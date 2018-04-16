@@ -12,7 +12,7 @@ using System.ComponentModel.Design;
 using Registration.Model;
 
 
-namespace Registrstion.WinForms.Forms
+namespace Registration.WinForms.Forms
 {
     public partial class RenameFolderForm : Form
     {

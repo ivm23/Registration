@@ -13,7 +13,7 @@ using System.ComponentModel.Design;
 using Registration.Model;
 using System.IO;
 
-namespace Registrstion.WinForms.Forms
+namespace Registration.WinForms.Forms
 {
     public partial class CreateFolderForm : Form
     {

@@ -51,6 +51,7 @@ namespace Registration.ClientInterface
                 }
             }
         }
+
         public void DeleteLetterFromDatabase(Guid letterId, string connectionString)
         {
             _client.DeleteAsync($"{connectionString}/letter/" + Convert.ToString(letterId));

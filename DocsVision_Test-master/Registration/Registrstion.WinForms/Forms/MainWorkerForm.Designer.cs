@@ -1,4 +1,4 @@
-﻿namespace Registrstion.WinForms.Forms
+﻿namespace Registration.WinForms.Forms
 {
     partial class MainWorkerForm
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Registrstion.WinForms {
+namespace Registration.WinForms {
     using System;
     
     

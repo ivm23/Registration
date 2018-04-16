@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Registrstion.WinForms.Forms
+namespace Registration.WinForms.Forms
 {
     public partial class CreateSearchFolderForm : Form
     {

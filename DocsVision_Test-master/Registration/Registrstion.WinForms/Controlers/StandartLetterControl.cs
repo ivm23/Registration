@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Registration.Model;
 using System.Xml;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registration.WinForms.Controlers
 {
     public partial class StandartLetterControl : UserControl //ILetterPropertiesUIPlugin
     {

@@ -7,7 +7,7 @@ using System.ComponentModel.Design;
 using Registration.ClientInterface;
 using Registration.Model;
 
-namespace Registrstion.WinForms
+namespace Registration.WinForms
 {
     static class Program
     {

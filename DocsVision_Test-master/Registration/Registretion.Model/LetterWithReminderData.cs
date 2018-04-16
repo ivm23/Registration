@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Registretion.Model
+namespace Registration.Model
 {
     [Serializable]
     public class LetterWithReminderData
