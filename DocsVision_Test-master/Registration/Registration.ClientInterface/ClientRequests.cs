@@ -21,8 +21,7 @@ namespace Registration.ClientInterface
 
         public ClientRequests()
         {
-            _httpRequests = new
-                HttpRequests("http://localhost:57893/api/");
+            _httpRequests = new HttpRequests("http://localhost:57893/api/");
         }
 
         public string SelectedDatabase
