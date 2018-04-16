@@ -26,6 +26,8 @@ namespace Registration.DataInterface.Sql
         const string NameWorker = "nameWorker";
         const string IsRead = "isRead";
         const string CountLetters = "countLetters";
+        const string TypeLetter = "type";
+        const string ExtendedData = "extendedData";
 
         public InboxFolderService(DatabaseService _databaseService) : base(_databaseService) { }
 
@@ -71,7 +73,9 @@ namespace Registration.DataInterface.Sql
                                 Date = reader.GetDateTime(reader.GetOrdinal(Date)),
                                 SenderName = reader.GetString(reader.GetOrdinal(NameWorker)),
                                 IdFolder = folderId,
-                                IsRead = reader.GetBoolean(reader.GetOrdinal(IsRead))
+                                IsRead = reader.GetBoolean(reader.GetOrdinal(IsRead)),
+                                Type = reader.GetInt32(reader.GetOrdinal(TypeLetter)),
+                                ExtendedData =  reader.GetString(reader.GetOrdinal(ExtendedData))
                             };
 
                             IDictionary<Guid, string> receivers = new Dictionary<Guid, string>();

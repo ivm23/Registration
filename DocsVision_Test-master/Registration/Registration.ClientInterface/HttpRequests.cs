@@ -181,9 +181,9 @@ namespace Registration.ClientInterface
             return _client.GetAsync($"{connectionString}/letter/types").Result.Content.ReadAsAsync<IEnumerable<LetterType>>().Result;
         }
 
-        public LetterType GetLetterType(int folderTypeId, string connectionString)
+        public LetterType GetLetterType(int letterTypeId, string connectionString)
         {
-            return _client.GetAsync($"{connectionString}/letter/{folderTypeId}/type").Result.Content.ReadAsAsync<LetterType>().Result;
+            return _client.GetAsync($"{connectionString}/letter/{letterTypeId}/type").Result.Content.ReadAsAsync<LetterType>().Result;
         }
     }
 }
