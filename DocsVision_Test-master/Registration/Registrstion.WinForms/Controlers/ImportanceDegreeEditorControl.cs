@@ -8,34 +8,48 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registration.WinForms.Controlers
 {
     public partial class ImportanceDegreeEditorControl : UserControl
     {
-        private IDictionary<int, string> _importanceDegree;
+        private IDictionary<SerializationService.ImportanceDegree, string> _importanceDegree = new Dictionary<SerializationService.ImportanceDegree, string>();
 
         public ImportanceDegreeEditorControl()
         {
             InitializeComponent();
         }
 
-        public void SetImportanceDegree(IDictionary<int, string> importanceDegrees)
-        {
-            _importanceDegree = importanceDegrees;
-            comboImportanceDegree.DataSource = "Value" ;
-            comboImportanceDegree.DisplayMember = "Key";
-            /*comboImportanceDegree.Items.Clear();
-            comboImportanceDegree.Items.AddRange(importanceDegrees.Values.ToArray());*/
+        private void InitializeImportanceDegreeControl()
+        {           
+            foreach (int value in Enum.GetValues(typeof(SerializationService.ImportanceDegree)))
+            {
+                string importanceDegreeStringValue = (string)Resources.ResourceManager.GetObject(value.ToString());
+
+                SerializationService.ImportanceDegree importanceDegreeEnumValue;
+                Enum.TryParse(importanceDegreeStringValue, out importanceDegreeEnumValue);
+                _importanceDegree.Add(importanceDegreeEnumValue, importanceDegreeStringValue);
+            }
+
+            comboImportanceDegree.DataSource = new BindingSource(_importanceDegree, null);
+            comboImportanceDegree.DisplayMember = "Value";
+            comboImportanceDegree.ValueMember = "Key";
         }
 
-        public KeyValuePair<int, string> GetImportanceDegree()
+        public SerializationService.ImportanceDegree SelectedImportanceDegree
         {
-            return (KeyValuePair<int, string>)comboImportanceDegree.SelectedItem;
+            set
+            {
+                comboImportanceDegree.SelectedItem = value;
+            }
+            get
+            {
+                return (SerializationService.ImportanceDegree)comboImportanceDegree.SelectedItem;
+            }
         }
 
-        public void SetSelectedImportanceDegree(KeyValuePair<int, string> selectedImportanceDegree)
+        private void ImportanceDegreeEditorControl_Load(object sender, EventArgs e)
         {
-            comboImportanceDegree.SelectedItem = selectedImportanceDegree;
+            InitializeImportanceDegreeControl();
         }
     }
 }

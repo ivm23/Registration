@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Registration.Model;
+using Registration.SerializationService;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
 using System.Text;
 using System.ComponentModel;
 
-namespace Registrstion.WinForms.Forms
+namespace Registration.WinForms.Forms
 {
     internal partial class MainWorkerForm : Form
     {
@@ -63,7 +63,7 @@ namespace Registrstion.WinForms.Forms
                 if (value != null)
                 {
                     ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(_comboLettersTypes[toolStripComboBox1.SelectedIndex]);
-                    clientUIPlugin.SetStandartLetter(value);
+                  //  clientUIPlugin.SetStandartLetter(value);
                     clientUIPlugin.SetLetterProperties(new LetterProperties() { Properties = value.ExtendedData });
                     clientUIPlugin.ReadOnly = true;
 
@@ -298,7 +298,7 @@ namespace Registrstion.WinForms.Forms
             InitializeClientService();
             InitializeMessageService();
 
-            using (var form = new Registrstion.WinForms.Registration(ServiceProvider))
+            using (var form = new Registration(ServiceProvider))
             {
                 form.ShowDialog();
             }
@@ -336,10 +336,10 @@ namespace Registrstion.WinForms.Forms
         {
             if (_lettersInfo.Count == 0 || briefContentLetterDGV.SelectedCells.Count == 0)
             {
-                MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.LetterNotSelect);
+                MessageService.ErrorMessage(Message.MessageResource.LetterNotSelect);
             }
             else
-            if (MessageService.QuestionMessage(Registrstion.WinForms.Message.MessageResource.DeleteLetter) == DialogResult.Yes)
+            if (MessageService.QuestionMessage(Message.MessageResource.DeleteLetter) == DialogResult.Yes)
             {
                 int indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
 
@@ -487,7 +487,7 @@ namespace Registrstion.WinForms.Forms
 
         private void deleteFolderTSMI_Click(object sender, EventArgs e)
         {
-            if (MessageService.QuestionMessage(Registrstion.WinForms.Message.MessageResource.DeleteFolder) == DialogResult.Yes)
+            if (MessageService.QuestionMessage(Message.MessageResource.DeleteFolder) == DialogResult.Yes)
             {
                 ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
             }

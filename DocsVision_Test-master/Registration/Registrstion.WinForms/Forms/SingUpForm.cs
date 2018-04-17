@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
-using Registration.Model;
+using Registration.SerializationService;
 
 namespace Registration.WinForms.Forms
 {

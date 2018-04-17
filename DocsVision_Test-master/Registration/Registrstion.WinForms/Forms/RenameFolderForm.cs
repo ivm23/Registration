@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
-using Registration.Model;
+using Registration.SerializationService;
 
 
 namespace Registration.WinForms.Forms

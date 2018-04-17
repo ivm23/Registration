@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registration.WinForms.Controlers
 {
     internal partial class FullContentLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
         public event EventHandler AddReceiver;
+        private LetterView _letterView = new LetterView();
 
         public FullContentLetterControl()
         {
@@ -32,25 +33,38 @@ namespace Registrstion.WinForms.Controlers
 
         public void SetLetterProperties(LetterProperties letterProperties) { }
 
-        public LetterView GetStandartLetter()
+        public LetterView StandartLetter
         {
-            var letterView = new LetterView
+            set
             {
-                Name = nameLetterTB.Text,
-                SenderName = nameSenderTB.Text,
-                Text = textLetterTB.Text,
-                Date = Convert.ToDateTime(dateLetterTB.Text)
-            };
-            letterView.ReceiversName.AddRange(workersEditorControl1.GetWorkers());
-            return letterView;
+                nameLetterTB.Text = value.Name;
+                nameSenderTB.Text = value.SenderName;
+                dateLetterTB.Text = value.Date.ToString();
+                workersEditorControl1.SetWorkers(value.ReceiversName);
+            }
+            get
+            {
+                _letterView.Name = nameLetterTB.Text;
+                _letterView.SenderName = nameSenderTB.Text;
+                _letterView.Text = textLetterTB.Text;
+                _letterView.Date = Convert.ToDateTime(dateLetterTB.Text);
+                _letterView.ReceiversName.AddRange(workersEditorControl1.GetWorkers());
+
+                return _letterView;
+            }
         }
 
-        public void SetStandartLetter(LetterView letterView)
+        public LetterView LetterView
         {
-            nameLetterTB.Text = letterView.Name;
-            nameSenderTB.Text = letterView.SenderName;
-            dateLetterTB.Text = letterView.Date.ToString();
-            workersEditorControl1.SetWorkers(letterView.ReceiversName);
+            set
+            {
+                StandartLetter = value;
+            }
+            get
+            {
+                _letterView = StandartLetter;
+                return _letterView;
+            }
         }
 
         public bool ReadOnly
@@ -62,8 +76,12 @@ namespace Registrstion.WinForms.Controlers
                 dateLetterTB.Visible = value;
                 labelDate.Visible = value;
                 nameReceiversCB.Visible = !value;
-                workersEditorControl1.Visible = value;              
+                workersEditorControl1.Visible = value;
                 nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
+            }
+            get
+            {
+                return textLetterTB.ReadOnly;
             }
         }
 

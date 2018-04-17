@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Registration.Model;
+using Registration.SerializationService;
 using Registration.DataInterface;
 using Registration.DataInterface.Sql;
 

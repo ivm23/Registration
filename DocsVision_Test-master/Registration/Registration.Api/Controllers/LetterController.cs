@@ -1,7 +1,7 @@
 ﻿using Registration.DataInterface;
 using Registration.DatabaseFactory;
 using Registration.DataInterface.Sql;
-using Registration.Model;
+using Registration.SerializationService;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;

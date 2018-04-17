@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.Design;
 using Registration.ClientInterface;
-using Registration.Model;
+using Registration.SerializationService;
 
 namespace Registration.WinForms
 {

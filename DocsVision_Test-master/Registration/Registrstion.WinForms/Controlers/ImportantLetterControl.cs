@@ -7,19 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registration.WinForms.Controlers
 {
     public partial class ImportantLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
-        enum ImportanceDegree { Low = 1, Normal = 2, High = 3 };
-
+        
         public event EventHandler AddReceiver;
-
+       private readonly ISerializationService serializer = SerializationServiceFactory.InitializeConfigurationService();
+        //  private readonly SerializationServiceXML<ImportantLetterData> serializer = new SerializationServiceXML<ImportantLetterData>();
+        private LetterView _letterView = new LetterView();
 
         public ImportantLetterControl()
         {
@@ -28,14 +29,6 @@ namespace Registrstion.WinForms.Controlers
 
         public void OnLoad()
         {
-            var importanceDEgree = new Dictionary<int, string>();
-
-            foreach (int value in Enum.GetValues(typeof(ImportanceDegree)))
-            {
-                importanceDEgree.Add(value, (string)Registrstion.WinForms.Resources.ResourceManager.GetObject(value.ToString()));
-            }
-
-            importanceDegreeEditorControl1.SetImportanceDegree(importanceDEgree);
         }
 
         public LetterProperties GetLetterProperties()
@@ -45,6 +38,7 @@ namespace Registrstion.WinForms.Controlers
             var xmlSerializer = new XmlSerializer(typeof(ImportantLetterData));
 
             var importantLetterData = new ImportantLetterData();
+            importantLetterData.DegreeImportance = importanceDegreeEditorControl1.SelectedImportanceDegree;
 
             using (var stringWriter = new StringWriter())
             {
@@ -71,44 +65,47 @@ namespace Registrstion.WinForms.Controlers
                 }
             }
 
-            importanceDegreeEditorControl1.SetSelectedImportanceDegree(importantLetterData.DegreeImportance);
+            importanceDegreeEditorControl1.SelectedImportanceDegree = importantLetterData.DegreeImportance;
         }
 
 
-        public LetterView GetStandartLetter()
+        public LetterView StandartLetter
         {
-            var letterView = new LetterView
+            set
             {
-                Name = nameLetterTB.Text,
-                SenderName = nameSenderTB.Text,
-                Text = textLetterTB.Text,
-                Date = Convert.ToDateTime(dateLetterTB.Text)
-            };
-            letterView.ReceiversName.AddRange(workersEditorControl1.GetWorkers());
-            return letterView;
+                fullContentLetterControl1.StandartLetter = value;
+            }
+            get
+            {
+                return fullContentLetterControl1.StandartLetter;
+            }
         }
 
-        public void SetStandartLetter(LetterView letterView)
+        public LetterView LetterView
         {
-            nameLetterTB.Text = letterView.Name;
-            nameSenderTB.Text = letterView.SenderName;
-            dateLetterTB.Text = letterView.Date.ToString();
-            workersEditorControl1.SetWorkers(letterView.ReceiversName);
+            set
+            {
+                StandartLetter = value;
+                LetterProperties = value;
+            }
+            get
+            {
+                _letterView = StandartLetter;
+                _letterView.ExtendedData = LetterProperties.Property;
+                return _letterView;
+            }
         }
-
 
         public bool ReadOnly
         {
             set
             {
-                nameLetterTB.ReadOnly = value;
-                textLetterTB.ReadOnly = value;
-                dateLetterTB.Visible = value;
-                labelDate.Visible = value;
-                nameReceiversCB.Visible = !value;
-                workersEditorControl1.Visible = value;
-                importanceDegreeEditorControl1.Visible = value;
-                nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
+                fullContentLetterControl1.ReadOnly = value;
+                importanceDegreeEditorControl1.Visible = !value;
+            }
+            get
+            {
+                return fullContentLetterControl1.ReadOnly;
             }
         }
 

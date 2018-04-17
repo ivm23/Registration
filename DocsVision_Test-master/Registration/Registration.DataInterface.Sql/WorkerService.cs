@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Data.SqlClient;
 using Registration.DatabaseFactory;
 using System.Data;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Text;
 
 namespace Registration.ClientInterface

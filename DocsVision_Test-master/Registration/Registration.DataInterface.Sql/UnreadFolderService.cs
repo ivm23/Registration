@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Registration.Model;
+using Registration.SerializationService;
 using Registration.DatabaseFactory;
 using Registration.DataInterface.Sql;
 using System.Data;

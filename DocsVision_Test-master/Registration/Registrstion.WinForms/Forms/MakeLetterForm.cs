@@ -5,10 +5,10 @@ using System.Windows.Forms;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Drawing;
 
-namespace Registrstion.WinForms.Forms
+namespace Registration.WinForms.Forms
 {
     internal partial class MakeLetterForm : Form
     {
@@ -89,12 +89,12 @@ namespace Registrstion.WinForms.Forms
         {
             if (string.IsNullOrEmpty(letterName))
             {
-                MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.EmptyNameInLetter);
+                MessageService.ErrorMessage(Message.MessageResource.EmptyNameInLetter);
                 return false;
             }
             if (workerNameAndLogin.Count() == 0)
             {
-                MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.EmptyListRecipient);
+                MessageService.ErrorMessage(Message.MessageResource.EmptyListRecipient);
                 return false;
             }
 
@@ -107,12 +107,12 @@ namespace Registrstion.WinForms.Forms
             LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
             ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
-            global::Registration.Model.LetterProperties letterProp = clientUIPlugin.GetLetterProperties();
-            LetterView letterView = clientUIPlugin.GetStandartLetter();
+            global::Registration.SerializationService.LetterProperties letterProp = clientUIPlugin.GetLetterProperties();
+            LetterView letterView = clientUIPlugin.StandartLetter;
 
          if (SendLetter(letterView.Name, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, NamesAndLoginsReceivers, letterView.Text, letterProp.ToString(), selectedLetterType.Id)) 
             {
-                MessageService.InfoMessage(Registrstion.WinForms.Message.MessageResource.SentLetter);
+                MessageService.InfoMessage(Message.MessageResource.SentLetter);
                 Close();
             }
         }

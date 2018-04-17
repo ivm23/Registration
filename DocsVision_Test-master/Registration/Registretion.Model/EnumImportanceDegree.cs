@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Registration.SerializationService
 {
-    [Serializable]
-    public class ImportantLetterData
-    {
-         public Registration.SerializationService.ImportanceDegree DegreeImportance;
-    }
+    public enum ImportanceDegree {
+        Low = 1,
+        Normal = 2,
+        High = 3,
+    };
 }

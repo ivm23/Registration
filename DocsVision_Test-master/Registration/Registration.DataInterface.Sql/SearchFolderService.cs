@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Registration.DatabaseFactory;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Data;
 using System.ComponentModel.Design;
 using Registration.DataInterface.Sql;

@@ -1,4 +1,4 @@
-﻿namespace Registrstion.WinForms.Controlers
+﻿namespace Registration.WinForms.Controlers
 {
     partial class FullContentLetterControl
     {
@@ -37,9 +37,10 @@
             this.labelReceivers = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
             this.textLetterTB = new System.Windows.Forms.TextBox();
-            this.nameReceiversCB = new System.Windows.Forms.ComboBox();
             this.addReceiversB = new System.Windows.Forms.Button();
-            this.workersEditorControl1 = new Registrstion.WinForms.Controlers.WorkersEditorControl();
+            this.workersEditorControl1 = new WorkersEditorControl();
+            this.nameReceiversCB = new System.Windows.Forms.ComboBox();
+            this.workersEditorControl2 = new WorkersEditorControl();
             this.SuspendLayout();
             // 
             // labelName
@@ -131,22 +132,10 @@
             this.textLetterTB.Size = new System.Drawing.Size(330, 296);
             this.textLetterTB.TabIndex = 9;
             // 
-            // nameReceiversCB
-            // 
-            this.nameReceiversCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameReceiversCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.nameReceiversCB.FormattingEnabled = true;
-            this.nameReceiversCB.Location = new System.Drawing.Point(19, 110);
-            this.nameReceiversCB.Name = "nameReceiversCB";
-            this.nameReceiversCB.Size = new System.Drawing.Size(330, 21);
-            this.nameReceiversCB.TabIndex = 10;
-            this.nameReceiversCB.Visible = false;
-            // 
             // addReceiversB
             // 
             this.addReceiversB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addReceiversB.Location = new System.Drawing.Point(394, 111);
+            this.addReceiversB.Location = new System.Drawing.Point(394, 107);
             this.addReceiversB.Name = "addReceiversB";
             this.addReceiversB.Size = new System.Drawing.Size(87, 23);
             this.addReceiversB.TabIndex = 12;
@@ -160,11 +149,33 @@
             this.workersEditorControl1.Size = new System.Drawing.Size(336, 28);
             this.workersEditorControl1.TabIndex = 13;
             // 
+            // nameReceiversCB
+            // 
+            this.nameReceiversCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nameReceiversCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.nameReceiversCB.FormattingEnabled = true;
+            this.nameReceiversCB.Location = new System.Drawing.Point(19, 110);
+            this.nameReceiversCB.Name = "nameReceiversCB";
+            this.nameReceiversCB.Size = new System.Drawing.Size(330, 21);
+            this.nameReceiversCB.TabIndex = 10;
+            this.nameReceiversCB.Visible = false;
+            // 
+            // workersEditorControl2
+            // 
+            this.workersEditorControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.workersEditorControl2.Location = new System.Drawing.Point(16, 107);
+            this.workersEditorControl2.Name = "workersEditorControl2";
+            this.workersEditorControl2.Size = new System.Drawing.Size(336, 28);
+            this.workersEditorControl2.TabIndex = 13;
+            // 
             // FullContentLetterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.workersEditorControl1);
+            this.Controls.Add(this.workersEditorControl2);
             this.Controls.Add(this.addReceiversB);
             this.Controls.Add(this.nameReceiversCB);
             this.Controls.Add(this.textLetterTB);
@@ -194,8 +205,9 @@
         private System.Windows.Forms.Label labelReceivers;
         private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.TextBox textLetterTB;
-        private System.Windows.Forms.ComboBox nameReceiversCB;
         private System.Windows.Forms.Button addReceiversB;
         private WorkersEditorControl workersEditorControl1;
+        private System.Windows.Forms.ComboBox nameReceiversCB;
+        private WorkersEditorControl workersEditorControl2;
     }
 }

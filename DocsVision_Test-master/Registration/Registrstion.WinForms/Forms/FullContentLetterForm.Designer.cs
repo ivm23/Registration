@@ -1,4 +1,4 @@
-﻿namespace Registrstion.WinForms.Forms
+﻿namespace Registration.WinForms.Forms
 {
     partial class FullContentLetterForm
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FullContentLetterForm));
-            this.fullContentLetterControl1 = new Registrstion.WinForms.Controlers.FullContentLetterControl();
+            this.fullContentLetterControl1 = new Controlers.FullContentLetterControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.deleteLetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();

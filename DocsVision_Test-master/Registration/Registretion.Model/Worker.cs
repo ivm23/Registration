@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Registration.Model
+namespace Registration.SerializationService
 {
     public class Worker
     {

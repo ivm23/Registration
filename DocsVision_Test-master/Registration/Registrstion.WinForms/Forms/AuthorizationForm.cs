@@ -5,9 +5,9 @@ using System.Windows.Forms;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
-using Registration.Model;
+using Registration.SerializationService;
 
-namespace Registrstion.WinForms
+namespace Registration.WinForms
 {
     internal partial class Registration : Form
     {
@@ -81,7 +81,7 @@ namespace Registrstion.WinForms
             Guid workerId = Guid.Empty;
             if (string.IsNullOrEmpty(workerLogin) || string.IsNullOrEmpty(workerPassword))
             {
-                MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.EmptyLoginOrPassword);
+                MessageService.ErrorMessage(Message.MessageResource.EmptyLoginOrPassword);
             }
             else
             {
@@ -89,11 +89,11 @@ namespace Registrstion.WinForms
 
                 if (Guid.Empty.Equals(workerId))
                 {
-                    MessageService.ErrorMessage(Registrstion.WinForms.Message.MessageResource.WrongLoginOrPassword);
+                    MessageService.ErrorMessage(Message.MessageResource.WrongLoginOrPassword);
                 }
                 else
                 {
-                    MessageService.SingleMessage(Registrstion.WinForms.Message.MessageResource.Welcome);
+                    MessageService.SingleMessage(Message.MessageResource.Welcome);
                 }
             }
             return workerId;

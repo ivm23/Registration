@@ -7,19 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registration.WinForms.Controlers
 {
     public partial class LetterWithResponseTimeControl : UserControl, ILetterPropertiesUIPlugin
     {
-        //enum ImportanceDegree { Low = 1, Normal = 2, High = 3 };
-
         public event EventHandler AddReceiver;
-
+        private LetterView _letterView = new LetterView();
 
         public LetterWithResponseTimeControl()
         {
@@ -64,26 +62,31 @@ namespace Registrstion.WinForms.Controlers
             }
         }
 
-
-        public LetterView GetStandartLetter()
+        public LetterView LetterView
         {
-            var letterView = new LetterView
+            set
             {
-                Name = nameLetterTB.Text,
-                SenderName = nameSenderTB.Text,
-                Text = textLetterTB.Text,
-                Date = Convert.ToDateTime(dateLetterTB.Text)
-            };
-            letterView.ReceiversName.AddRange(workersEditorControl1.GetWorkers());
-            return letterView;
+                StandartLetter = value;
+                LetterProperties = value;
+            }
+            get
+            {
+                _letterView = StandartLetter;
+                _letterView.ExtendedData = LetterProperties.Property;                
+                return _letterView;
+            }
         }
 
-        public void SetStandartLetter(LetterView letterView)
+        public LetterView StandartLetter
         {
-            nameLetterTB.Text = letterView.Name;
-            nameSenderTB.Text = letterView.SenderName;
-            dateLetterTB.Text = letterView.Date.ToString();
-            workersEditorControl1.SetWorkers(letterView.ReceiversName);
+            set
+            {
+                fullContentLetterControl1.StandartLetter = value;
+            }
+            get
+            {
+                return fullContentLetterControl1.StandartLetter;
+            }
         }
 
 
@@ -91,14 +94,12 @@ namespace Registrstion.WinForms.Controlers
         {
             set
             {
-                nameLetterTB.ReadOnly = value;
-                textLetterTB.ReadOnly = value;
-                dateLetterTB.Visible = value;
-                labelDate.Visible = value;
-                nameReceiversCB.Visible = !value;
-                workersEditorControl1.Visible = value;
-              
-                nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
+                fullContentLetterControl1.ReadOnly = value;
+                dateTimePickerResponseRequired.Visible = !value;
+            }
+            get
+            {
+                return fullContentLetterControl1.ReadOnly;
             }
         }
 

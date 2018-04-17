@@ -107,14 +107,12 @@
     <Compile Include="Controlers\ImportantLetterControl.Designer.cs">
       <DependentUpon>ImportantLetterControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controlers\ImportantLetterData.cs" />
     <Compile Include="Controlers\InboxFolderControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controlers\InboxFolderControl.Designer.cs">
       <DependentUpon>InboxFolderControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controlers\LetterWithResponseTimeData.cs" />
     <Compile Include="Controlers\LetterWithResponseTimeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -331,6 +329,10 @@
     <ProjectReference Include="..\Registration.Logger\Registration.Logger.csproj">
       <Project>{2eb8e0cb-1fac-4185-8315-96a50d92db69}</Project>
       <Name>Registration.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registration.SerializeService\Registration.SerializationService.csproj">
+      <Project>{38ac2b4f-2603-40f9-beb6-ffae04e6e17d}</Project>
+      <Name>Registration.SerializationService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Registretion.Model\Registration.Model.csproj">
       <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>

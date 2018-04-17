@@ -4,7 +4,7 @@ using Registration.WinForms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Registration.Model;
+using Registration.SerializationService;
 using System.Windows.Forms;
 
 namespace Registration.WinForms

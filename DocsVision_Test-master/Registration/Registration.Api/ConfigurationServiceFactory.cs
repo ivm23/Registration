@@ -9,7 +9,6 @@ namespace Registration.Api
 {
     public sealed class ConfigurationServiceFactory
     {
-
         private static ConfigurationServiceFactorySectionHandle sectionHandler = (ConfigurationServiceFactorySectionHandle)ConfigurationManager.GetSection("ConfigurationService");
 
         private ConfigurationServiceFactory() { }

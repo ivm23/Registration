@@ -1,5 +1,5 @@
 ﻿using Registration.DataInterface;
-using Registration.Model;
+using Registration.SerializationService;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;

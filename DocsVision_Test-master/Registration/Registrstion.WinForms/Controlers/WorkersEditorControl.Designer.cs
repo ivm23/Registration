@@ -1,4 +1,4 @@
-﻿namespace Registrstion.WinForms.Controlers
+﻿namespace Registration.WinForms.Controlers
 {
     partial class WorkersEditorControl
     {
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.txtWorkers = new System.Windows.Forms.TextBox();
+            this.comboWorkers = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtWorkers
@@ -36,17 +37,29 @@
             this.txtWorkers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtWorkers.Location = new System.Drawing.Point(3, 3);
+            this.txtWorkers.Location = new System.Drawing.Point(2, 4);
             this.txtWorkers.Name = "txtWorkers";
             this.txtWorkers.Size = new System.Drawing.Size(205, 20);
             this.txtWorkers.TabIndex = 0;
             // 
-            // WorkersControl
+            // comboWorkers
+            // 
+            this.comboWorkers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboWorkers.FormattingEnabled = true;
+            this.comboWorkers.Location = new System.Drawing.Point(2, 4);
+            this.comboWorkers.Name = "comboWorkers";
+            this.comboWorkers.Size = new System.Drawing.Size(205, 21);
+            this.comboWorkers.TabIndex = 1;
+            // 
+            // WorkersEditorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.comboWorkers);
             this.Controls.Add(this.txtWorkers);
-            this.Name = "WorkersControl";
+            this.Name = "WorkersEditorControl";
             this.Size = new System.Drawing.Size(211, 28);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -56,5 +69,6 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtWorkers;
+        private System.Windows.Forms.ComboBox comboWorkers;
     }
 }

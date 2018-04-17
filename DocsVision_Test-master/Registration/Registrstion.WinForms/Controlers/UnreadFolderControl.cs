@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Registration.Model;
+using Registration.SerializationService;
 
 namespace Registration.WinForms.Controlers
 {
@@ -30,7 +30,7 @@ namespace Registration.WinForms.Controlers
             {
                 if (null == info)
                 {
-                    info = new global::Registration.Model.FolderProperties();
+                    info = new global::Registration.SerializationService.FolderProperties();
                 }
                 return info;
             }

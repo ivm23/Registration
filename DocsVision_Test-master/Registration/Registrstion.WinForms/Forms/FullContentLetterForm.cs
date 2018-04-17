@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Registration.Model;
+using Registration.SerializationService;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
 using Registration.Logger;
@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Registrstion.WinForms.Forms
+namespace Registration.WinForms.Forms
 {
     internal partial class FullContentLetterForm : Form
     {
@@ -87,14 +87,6 @@ namespace Registrstion.WinForms.Forms
 
             LetterProperties prop = new LetterProperties() { };
 
-/*            XmlElement elem = prop.Properties.CreateElement(letterView.ExtendedData);
-            elem.InnerText = letterView.ExtendedData;
-            prop.Properties.AppendChild(elem);
-
-            newControl.Properties = prop;*/
-           
-       //     fullContentLetterControl1.FullContent = letterView;
-
             int minXLocation = int.MaxValue;
             int minYLocation = int.MaxValue;
             int sizeForMinYLocation = 0;
@@ -145,7 +137,7 @@ namespace Registrstion.WinForms.Forms
 
         private void deleteLetterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageService.QuestionMessage(Registrstion.WinForms.Message.MessageResource.DeleteLetter) == DialogResult.Yes)
+            if (MessageService.QuestionMessage(Message.MessageResource.DeleteLetter) == DialogResult.Yes)
             {
                 DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
                 Close();

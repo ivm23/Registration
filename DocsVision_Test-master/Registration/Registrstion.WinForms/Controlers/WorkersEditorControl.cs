@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Registrstion.WinForms.Controlers
+namespace Registration.WinForms.Controlers
 {
     public partial class WorkersEditorControl : UserControl
     {
@@ -26,13 +26,34 @@ namespace Registrstion.WinForms.Controlers
 
         public void SetWorkers(IEnumerable<string> workers)
         {
-            StringBuilder workersString = new StringBuilder();
-            foreach (string worker in workers)
+            if (ReadOnly)
             {
-                workersString.Append(worker).Append("; ");
-            }
+                StringBuilder workersString = new StringBuilder();
+                foreach (string worker in workers)
+                {
+                    workersString.Append(worker).Append("; ");
+                }
 
-            txtWorkers.Text = workersString.ToString();
+                txtWorkers.Text = workersString.ToString();
+            }
+            else
+            {
+                comboWorkers.Items.AddRange(workers.ToArray());
+            }
+        }
+
+        public bool ReadOnly
+        {
+            set
+            {
+                txtWorkers.ReadOnly = value;
+                txtWorkers.Visible = value;
+                comboWorkers.Visible = !value;
+            }
+            get
+            {
+                return txtWorkers.ReadOnly;
+            }
         }
     }
 }

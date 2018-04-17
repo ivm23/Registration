@@ -30,13 +30,12 @@
         {
             this.labelDate = new System.Windows.Forms.Label();
             this.dateTimePickerResponseRequired = new System.Windows.Forms.DateTimePicker();
-            this.fullContentLetterControl1 = new Controlers.FullContentLetterControl();
             this.SuspendLayout();
             // 
             // labelDate
             // 
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(383, 50);
+            this.labelDate.Location = new System.Drawing.Point(406, 411);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(132, 13);
             this.labelDate.TabIndex = 0;
@@ -44,18 +43,10 @@
             // 
             // dateTimePickerResponseRequired
             // 
-            this.dateTimePickerResponseRequired.Location = new System.Drawing.Point(386, 66);
+            this.dateTimePickerResponseRequired.Location = new System.Drawing.Point(409, 427);
             this.dateTimePickerResponseRequired.Name = "dateTimePickerResponseRequired";
             this.dateTimePickerResponseRequired.Size = new System.Drawing.Size(122, 20);
             this.dateTimePickerResponseRequired.TabIndex = 1;
-            // 
-            // fullContentLetterControl1
-            // 
-            this.fullContentLetterControl1.Location = new System.Drawing.Point(-8, -4);
-            this.fullContentLetterControl1.Name = "fullContentLetterControl1";
-            this.fullContentLetterControl1.ReadOnly = true;
-            this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 457);
-            this.fullContentLetterControl1.TabIndex = 2;
             // 
             // LetterWithResponseTimeControl
             // 
@@ -63,7 +54,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dateTimePickerResponseRequired);
             this.Controls.Add(this.labelDate);
-            this.Controls.Add(this.fullContentLetterControl1);
             this.Name = "LetterWithResponseTimeControl";
             this.Size = new System.Drawing.Size(538, 481);
             this.ResumeLayout(false);
@@ -75,6 +65,5 @@
 
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.DateTimePicker dateTimePickerResponseRequired;
-        private FullContentLetterControl fullContentLetterControl1;
     }
 }

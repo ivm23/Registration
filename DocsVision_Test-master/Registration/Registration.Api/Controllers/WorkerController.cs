@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Registration.DataInterface;
 using Registration.DataInterface.Sql;
-using Registration.Model;
+using Registration.SerializationService;
 using Registration.DatabaseFactory;
 using System.ComponentModel.Design;
 using System.Web;

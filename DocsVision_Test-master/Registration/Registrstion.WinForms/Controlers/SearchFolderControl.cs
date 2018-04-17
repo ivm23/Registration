@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Registration.Model;
+using Registration.SerializationService;
 
 namespace Registration.WinForms.Controlers
 {
@@ -28,7 +28,7 @@ namespace Registration.WinForms.Controlers
             }
             get
             {
-                global::Registration.Model.FolderProperties info = new global::Registration.Model.FolderProperties();
+                global::Registration.SerializationService.FolderProperties info = new global::Registration.SerializationService.FolderProperties();
                 info.Properties.Add(comboSelectSender.Text, comboSelectSender.SelectedItem.ToString());
                 return info;
             }

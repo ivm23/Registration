@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Registration.ClientInterface;
 using System.ComponentModel.Design;
-using Registration.Model;
+using Registration.SerializationService;
 using System.IO;
 
 namespace Registration.WinForms.Forms
@@ -140,7 +140,7 @@ namespace Registration.WinForms.Forms
         private void CreateFolder(object sender, EventArgs e)
         {
             IFolderPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetFolderPropetiesPlugin(SelectedFolderType);
-            global::Registration.Model.FolderProperties folderProp = clientUIPlugin.Info;
+            global::Registration.SerializationService.FolderProperties folderProp = clientUIPlugin.Info;
 
             StringBuilder data = new StringBuilder();
             if (null != folderProp)

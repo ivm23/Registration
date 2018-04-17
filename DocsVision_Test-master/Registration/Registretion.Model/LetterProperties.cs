@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
     
 using System.Threading.Tasks;
 
-namespace Registration.Model
+namespace Registration.SerializationService
 {
     public class LetterProperties
     {

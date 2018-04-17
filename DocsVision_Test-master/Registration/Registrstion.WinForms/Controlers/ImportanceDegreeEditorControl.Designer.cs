@@ -50,6 +50,7 @@
             this.Controls.Add(this.comboImportanceDegree);
             this.Name = "ImportanceDegreeEditorControl";
             this.Size = new System.Drawing.Size(128, 30);
+            this.Load += new System.EventHandler(this.ImportanceDegreeEditorControl_Load);
             this.ResumeLayout(false);
 
         }

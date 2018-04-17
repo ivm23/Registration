@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Registration.Model;
+using Registration.SerializationService;
 
-namespace Registrstion.WinForms
+namespace Registration.WinForms
 {
     public interface ILetterPropertiesUIPlugin
     {
@@ -15,12 +15,11 @@ namespace Registrstion.WinForms
 
         void SetLetterProperties(LetterProperties letterProperties);
 
-        LetterView GetStandartLetter();
-        void SetStandartLetter(LetterView letterView);
-
         event EventHandler AddReceiver;
 
-        bool ReadOnly { set; }
+        bool ReadOnly { set; get; }
+
+        LetterView LetterView { get; set; }
 
     }
 }
